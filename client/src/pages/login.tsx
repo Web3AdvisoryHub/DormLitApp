@@ -53,7 +53,7 @@ const LoginPage = () => {
         
         toast({
           title: "Welcome back!",
-          description: "Successfully signed in to your cosmic space.",
+          description: "Successfully signed in to your account.",
         });
         
         // Redirect to profile page after successful login
@@ -108,7 +108,7 @@ const LoginPage = () => {
                         <FormLabel>Username</FormLabel>
                         <FormControl>
                           <Input 
-                            placeholder="mystical_creator" 
+                            placeholder="username" 
                             {...field} 
                             className="mystical-input"
                           />

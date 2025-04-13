@@ -121,7 +121,7 @@ const RegisterPage = () => {
                         <FormLabel>Username</FormLabel>
                         <FormControl>
                           <Input 
-                            placeholder="mystical_creator" 
+                            placeholder="username" 
                             {...field} 
                             className="mystical-input"
                           />
@@ -142,7 +142,7 @@ const RegisterPage = () => {
                         <FormLabel>Display Name</FormLabel>
                         <FormControl>
                           <Input 
-                            placeholder="Mystical Creator" 
+                            placeholder="Your Name" 
                             {...field} 
                             className="mystical-input"
                           />
@@ -164,7 +164,7 @@ const RegisterPage = () => {
                         <FormControl>
                           <Input 
                             type="email" 
-                            placeholder="creator@mystical.realm" 
+                            placeholder="your.email@example.com" 
                             {...field} 
                             className="mystical-input"
                           />
