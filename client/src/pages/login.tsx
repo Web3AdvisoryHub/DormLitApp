@@ -91,7 +91,7 @@ const LoginPage = () => {
             </p>
           </div>
           
-          <Tabs defaultValue="login" className="cosmic-card p-6 rounded-xl">
+          <Tabs defaultValue="login" className="mystical-card p-6 rounded-xl">
             <TabsList className="grid w-full grid-cols-2 mb-6">
               <TabsTrigger value="register" onClick={() => navigate('/create-profile')}>New Creator</TabsTrigger>
               <TabsTrigger value="login">Sign In</TabsTrigger>
@@ -108,9 +108,9 @@ const LoginPage = () => {
                         <FormLabel>Username</FormLabel>
                         <FormControl>
                           <Input 
-                            placeholder="cosmic_creator" 
+                            placeholder="mystical_creator" 
                             {...field} 
-                            className="cosmic-input"
+                            className="mystical-input"
                           />
                         </FormControl>
                         <FormMessage />
@@ -129,7 +129,7 @@ const LoginPage = () => {
                             type="password" 
                             placeholder="••••••••" 
                             {...field} 
-                            className="cosmic-input"
+                            className="mystical-input"
                           />
                         </FormControl>
                         <FormMessage />
@@ -146,7 +146,7 @@ const LoginPage = () => {
                   <Button 
                     type="submit" 
                     disabled={isSubmitting}
-                    className="w-full py-6 bg-primary rounded-full text-lg font-semibold cosmic-glow hover:bg-primary/80 transition-all duration-300"
+                    className="w-full py-6 bg-primary rounded-full text-lg font-semibold mystical-glow hover:bg-primary/80 transition-all duration-300"
                   >
                     {isSubmitting ? "Connecting..." : "Enter Your Space"}
                   </Button>

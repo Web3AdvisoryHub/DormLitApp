@@ -42,7 +42,7 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold font-montserrat mb-6">Features</h3>
             <ul className="space-y-3 text-foreground/70">
-              <li><Link href="/features/avatars"><a className="hover:text-foreground transition-colors">Cosmic Avatars</a></Link></li>
+              <li><Link href="/features/avatars"><a className="hover:text-foreground transition-colors">Mystical Avatars</a></Link></li>
               <li><Link href="/features/bios"><a className="hover:text-foreground transition-colors">Extended Bios</a></Link></li>
               <li><Link href="/features/links"><a className="hover:text-foreground transition-colors">Link Sharing</a></Link></li>
               <li><Link href="/features/store"><a className="hover:text-foreground transition-colors">Creator Store</a></Link></li>
