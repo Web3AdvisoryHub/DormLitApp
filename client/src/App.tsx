@@ -10,6 +10,7 @@ import CreateProfilePage from "@/pages/create-profile";
 import ProfilePage from "@/pages/profile";
 import ManifestoPage from "@/pages/manifesto";
 import DiscoverPage from "@/pages/discover";
+import AvatarSelectionPage from "@/pages/avatar-selection";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -28,7 +29,7 @@ function Router() {
       <Route path="/about" component={() => <div className="p-20 text-center text-2xl">About - Coming Soon</div>} />
       
       {/* Feature routes */}
-      <Route path="/features/avatars" component={() => <div className="p-20 text-center text-2xl">Avatar Features - Coming Soon</div>} />
+      <Route path="/features/avatars" component={AvatarSelectionPage} />
       <Route path="/features/bios" component={() => <div className="p-20 text-center text-2xl">Bio Features - Coming Soon</div>} />
       <Route path="/features/links" component={() => <div className="p-20 text-center text-2xl">Link Features - Coming Soon</div>} />
       <Route path="/features/store" component={() => <div className="p-20 text-center text-2xl">Store Features - Coming Soon</div>} />
