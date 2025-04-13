@@ -24,6 +24,7 @@ const Header = () => {
   };
 
   const navItems = [
+    { name: "Manifesto", path: "/manifesto" },
     { name: "Discover", path: "/discover" },
     { name: "Marketplace", path: "/marketplace" },
     { name: "Community", path: "/community" },
@@ -37,10 +38,10 @@ const Header = () => {
           <div className="flex items-center space-x-2">
             <Link href="/">
               <a className="flex items-center space-x-2">
-                <div className="h-10 w-10 bg-primary rounded-full flex items-center justify-center cosmic-glow">
+                <div className="h-10 w-10 bg-primary rounded-full flex items-center justify-center mystical-glow">
                   <span className="text-lg font-bold font-montserrat">D</span>
                 </div>
-                <h1 className="text-2xl font-bold font-montserrat cosmic-gradient-text">
+                <h1 className="text-2xl font-bold font-montserrat aura-gradient-text">
                   Dormlit
                 </h1>
               </a>
@@ -60,7 +61,7 @@ const Header = () => {
           </nav>
           
           <div className="flex items-center space-x-4">
-            <Button asChild variant="default" className="bg-primary text-foreground px-4 py-2 rounded-full hover:bg-primary/80 transition-all duration-300 font-medium cosmic-glow">
+            <Button asChild variant="default" className="bg-primary text-foreground px-4 py-2 rounded-full hover:bg-primary/80 transition-all duration-300 font-medium mystical-glow">
               <Link href="/login">
                 <a>Sign In</a>
               </Link>

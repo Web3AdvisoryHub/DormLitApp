@@ -3,7 +3,39 @@ import { useEffect, useState } from 'react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import StarBackground from '@/components/ui/star-background';
-import { fadeIn, fadeUp, staggerContainer } from '@/lib/animations';
+
+// Define animation variants
+const staggerContainerVariant = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2
+    }
+  }
+};
+
+const fadeUpVariant = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      ease: [0.22, 1, 0.36, 1]
+    }
+  }
+};
+
+const fadeInVariant = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.5
+    }
+  }
+};
 
 const ManifestoPage = () => {
   const [hasAnimated, setHasAnimated] = useState(false);
@@ -22,11 +54,11 @@ const ManifestoPage = () => {
           className="max-w-3xl mx-auto"
           initial="hidden"
           animate="visible"
-          variants={staggerContainer}
+          variants={staggerContainerVariant}
         >
           <motion.div 
             className="text-center mb-16"
-            variants={fadeUp}
+            variants={fadeUpVariant}
           >
             <motion.h1 
               className="text-5xl md:text-6xl font-bold font-montserrat mb-4 aura-gradient-text"
@@ -42,7 +74,7 @@ const ManifestoPage = () => {
             
             <motion.div 
               className="mystical-card p-8 rounded-2xl border border-primary/30 my-8"
-              variants={fadeUp}
+              variants={fadeUpVariant}
             >
               <p className="text-xl md:text-2xl italic text-foreground/90 font-medium">
                 "FEAR: Finally Existing Average Reality. Dormlit is your invitation to exit."
@@ -52,7 +84,7 @@ const ManifestoPage = () => {
           
           <motion.div 
             className="prose prose-lg md:prose-xl prose-invert mx-auto"
-            variants={fadeIn}
+            variants={fadeInVariant}
           >
             <p className="text-xl leading-relaxed mb-8">
               You were never meant to blend in.<br />
@@ -71,7 +103,7 @@ const ManifestoPage = () => {
             
             <motion.h2 
               className="text-3xl font-bold font-montserrat mb-8"
-              variants={fadeUp}
+              variants={fadeUpVariant}
             >
               🧬 What Dormlit Stands For
             </motion.h2>
@@ -79,7 +111,7 @@ const ManifestoPage = () => {
             <ul className="space-y-8 mb-12">
               <motion.li 
                 className="flex items-start gap-4"
-                variants={fadeUp} 
+                variants={fadeUpVariant} 
                 custom={1}
               >
                 <div className="h-10 w-10 mt-1 bg-primary/20 rounded-full flex items-center justify-center mystical-glow flex-shrink-0">
@@ -95,7 +127,7 @@ const ManifestoPage = () => {
               
               <motion.li 
                 className="flex items-start gap-4"
-                variants={fadeUp} 
+                variants={fadeUpVariant} 
                 custom={2}
               >
                 <div className="h-10 w-10 mt-1 bg-primary/20 rounded-full flex items-center justify-center mystical-glow flex-shrink-0">
@@ -111,7 +143,7 @@ const ManifestoPage = () => {
               
               <motion.li 
                 className="flex items-start gap-4"
-                variants={fadeUp} 
+                variants={fadeUpVariant} 
                 custom={3}
               >
                 <div className="h-10 w-10 mt-1 bg-primary/20 rounded-full flex items-center justify-center mystical-glow flex-shrink-0">
@@ -127,7 +159,7 @@ const ManifestoPage = () => {
               
               <motion.li 
                 className="flex items-start gap-4"
-                variants={fadeUp} 
+                variants={fadeUpVariant} 
                 custom={4}
               >
                 <div className="h-10 w-10 mt-1 bg-primary/20 rounded-full flex items-center justify-center mystical-glow flex-shrink-0">
@@ -143,7 +175,7 @@ const ManifestoPage = () => {
               
               <motion.li 
                 className="flex items-start gap-4"
-                variants={fadeUp} 
+                variants={fadeUpVariant} 
                 custom={5}
               >
                 <div className="h-10 w-10 mt-1 bg-primary/20 rounded-full flex items-center justify-center mystical-glow flex-shrink-0">
@@ -160,7 +192,7 @@ const ManifestoPage = () => {
             
             <motion.h2 
               className="text-3xl font-bold font-montserrat mb-8"
-              variants={fadeUp}
+              variants={fadeUpVariant}
             >
               🦋 Why We're Different
             </motion.h2>
@@ -178,7 +210,7 @@ const ManifestoPage = () => {
             <div className="border-t border-primary/30 pt-16 mb-8">
               <motion.div 
                 className="text-center"
-                variants={fadeUp}
+                variants={fadeUpVariant}
               >
                 <p className="text-2xl font-bold mb-4">Welcome to Dormlit.</p>
                 <p className="text-3xl aura-gradient-text font-bold font-montserrat">Design your difference.</p>
