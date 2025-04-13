@@ -59,10 +59,10 @@
     @apply antialiased bg-background text-foreground;
     background: linear-gradient(135deg, hsl(260, 15%, 10%), hsl(273, 30%, 20%));
     background-size: 400% 400%;
-    animation: cosmic-bg 15s ease infinite;
+    animation: mystical-bg 15s ease infinite;
   }
 
-  @keyframes cosmic-bg {
+  @keyframes mystical-bg {
     0% { background-position: 0% 50% }
     50% { background-position: 100% 50% }
     100% { background-position: 0% 50% }
@@ -76,18 +76,18 @@
     font-family: 'Quicksand', sans-serif;
   }
 
-  .cosmic-gradient-text {
+  .aura-gradient-text {
     @apply bg-gradient-to-r from-purple-600 via-blue-500 to-teal-400 inline-block text-transparent bg-clip-text;
   }
 }
 
 @layer components {
-  .cosmic-card {
+  .mystical-card {
     @apply relative bg-card/80 backdrop-blur-md rounded-xl transition-all duration-300 overflow-hidden;
     position: relative;
   }
   
-  .cosmic-card::before {
+  .mystical-card::before {
     content: '';
     position: absolute;
     top: -1px;
@@ -101,15 +101,15 @@
     transition: opacity 0.3s ease;
   }
   
-  .cosmic-card:hover::before {
+  .mystical-card:hover::before {
     opacity: 0.8;
   }
 
-  .cosmic-glow {
+  .mystical-glow {
     position: relative;
   }
   
-  .cosmic-glow::after {
+  .mystical-glow::after {
     content: '';
     position: absolute;
     top: 0;
@@ -122,7 +122,7 @@
     transition: opacity 0.3s ease;
   }
   
-  .cosmic-glow:hover::after {
+  .mystical-glow:hover::after {
     opacity: 1;
   }
 
@@ -137,7 +137,7 @@
     100% { background-position: 200% 0 }
   }
 
-  .cosmic-input {
+  .mystical-input {
     @apply bg-card/80 border border-primary/50 transition-all duration-300 focus:border-primary focus:shadow-[0_0_0_2px_rgba(106,13,173,0.2)];
   }
 
@@ -150,11 +150,11 @@
     50% { transform: translateY(-10px); }
   }
 
-  .animate-cosmic-pulse {
-    animation: cosmic-pulse 3s infinite;
+  .animate-mystical-pulse {
+    animation: mystical-pulse 3s infinite;
   }
 
-  @keyframes cosmic-pulse {
+  @keyframes mystical-pulse {
     0%, 100% { opacity: 1; transform: scale(1); }
     50% { opacity: 0.8; transform: scale(1.05); }
   }
