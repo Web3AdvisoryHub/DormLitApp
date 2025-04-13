@@ -17,7 +17,7 @@ import {
 const comments = [
   {
     id: 1,
-    name: "CosmicDreamer",
+    name: "DreamWeaver",
     timeAgo: "Just now",
     content: "I've been following your work for years and it just keeps getting better! ✨",
     likes: 24,
@@ -25,7 +25,7 @@ const comments = [
   },
   {
     id: 2,
-    name: "GalacticQueen",
+    name: "MysticQueen",
     timeAgo: "10 minutes ago",
     content: "The new collection is absolutely stunning! Just purchased my favorite piece. 💜",
     likes: 42,
@@ -35,24 +35,24 @@ const comments = [
     id: 3,
     name: "AetherWalker",
     timeAgo: "1 hour ago",
-    content: "Your podcast episode about cosmic inspiration changed my perspective! When is the next one coming out?",
+    content: "Your podcast episode about creative inspiration changed my perspective! When is the next one coming out?",
     likes: 18,
     isCreator: false
   },
   {
     id: 4,
-    name: "AstralHarmony",
+    name: "HarmonyCreator",
     timeAgo: "30 minutes ago",
-    content: "Thank you so much! The next episode drops this Friday - all about the connection between music and cosmic energies. 🎵✨",
+    content: "Thank you so much! The next episode drops this Friday - all about the connection between music and creative energies. 🎵✨",
     likes: 37,
     isCreator: true,
     replyTo: "AetherWalker"
   },
   {
     id: 5,
-    name: "NebulaWanderer",
+    name: "StarWanderer",
     timeAgo: "3 hours ago",
-    content: "Just discovered your work through a friend. Immediately became a supporter! Your cosmic vision is unmatched. 🌠",
+    content: "Just discovered your work through a friend. Immediately became a supporter! Your creative vision is unmatched. 🌠",
     likes: 12,
     isCreator: false
   }
@@ -73,7 +73,7 @@ const FanWall = () => {
           Interactive Fan Wall
         </h2>
         <p className="text-lg text-foreground/70 max-w-2xl mx-auto font-quicksand">
-          Build cosmic connections with your community through our interactive fan engagement system
+          Build meaningful connections with your community through our interactive fan engagement system
         </p>
       </motion.div>
       
@@ -89,14 +89,14 @@ const FanWall = () => {
           <div className="cosmic-card p-3 rounded-lg max-w-xs rotate-3 shadow-lg">
             <div className="flex items-center mb-2">
               <div className="h-8 w-8 rounded-full bg-primary/40 flex items-center justify-center mr-2">
-                <span className="text-sm font-bold">CF</span>
+                <span className="text-sm font-bold">MF</span>
               </div>
               <div>
-                <p className="text-sm font-medium">CosmicFan42</p>
+                <p className="text-sm font-medium">MysticalFan42</p>
                 <p className="text-xs text-foreground/60">2 hours ago</p>
               </div>
             </div>
-            <p className="text-sm">Your latest cosmic creation blew my mind! The colors are out of this universe! 🌌✨</p>
+            <p className="text-sm">Your latest creation blew my mind! The colors are out of this world! 🌌✨</p>
           </div>
         </motion.div>
         
@@ -117,7 +117,7 @@ const FanWall = () => {
                 <p className="text-xs text-foreground/60">5 hours ago</p>
               </div>
             </div>
-            <p className="text-sm">Just supported your store! Can't wait for my celestial merch to arrive! Thanks for creating such amazing art! 💫</p>
+            <p className="text-sm">Just supported your store! Can't wait for my mystical merch to arrive! Thanks for creating such amazing art! 💫</p>
           </div>
         </motion.div>
         
@@ -129,7 +129,7 @@ const FanWall = () => {
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <h3 className="text-2xl font-bold font-montserrat mb-4">Engage Your Cosmic Community</h3>
+              <h3 className="text-2xl font-bold font-montserrat mb-4">Engage Your Creator Community</h3>
               <p className="text-foreground/70 mb-6">
                 The Fan Wall creates a direct connection between you and your supporters. Share updates, receive feedback, and build lasting relationships.
               </p>
@@ -219,7 +219,7 @@ const FanWall = () => {
                     <div className="flex-1">
                       <Textarea 
                         className="cosmic-input rounded-lg bg-card/50 border border-primary/30 p-3 w-full text-sm h-20 min-h-[80px]"
-                        placeholder="Share your cosmic thoughts..."
+                        placeholder="Share your thoughts..."
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}
                       />
