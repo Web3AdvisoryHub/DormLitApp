@@ -36,26 +36,26 @@ const Header = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-2">
-            <Link href="/">
-              <a className="flex items-center space-x-2">
-                <div className="h-10 w-10 bg-primary rounded-full flex items-center justify-center mystical-glow">
-                  <span className="text-lg font-bold font-montserrat">D</span>
-                </div>
-                <h1 className="text-2xl font-bold font-montserrat aura-gradient-text">
-                  Dormlit
-                </h1>
-              </a>
+            <Link href="/" className="flex items-center space-x-2">
+              <div className="h-10 w-10 bg-primary rounded-full flex items-center justify-center mystical-glow">
+                <span className="text-lg font-bold font-montserrat">D</span>
+              </div>
+              <h1 className="text-2xl font-bold font-montserrat aura-gradient-text">
+                Dormlit
+              </h1>
             </Link>
           </div>
           
           <nav className="hidden md:flex space-x-6 items-center">
             {navItems.map((item) => (
-              <Link key={item.path} href={item.path}>
-                <a className={`text-foreground/80 hover:text-foreground transition-colors duration-300 font-medium ${
+              <Link 
+                key={item.path} 
+                href={item.path}
+                className={`text-foreground/80 hover:text-foreground transition-colors duration-300 font-medium ${
                   location === item.path ? "text-foreground" : ""
-                }`}>
-                  {item.name}
-                </a>
+                }`}
+              >
+                {item.name}
               </Link>
             ))}
           </nav>
@@ -63,7 +63,7 @@ const Header = () => {
           <div className="flex items-center space-x-4">
             <Button asChild variant="default" className="bg-primary text-foreground px-4 py-2 rounded-full hover:bg-primary/80 transition-all duration-300 font-medium mystical-glow">
               <Link href="/login">
-                <a>Sign In</a>
+                Sign In
               </Link>
             </Button>
             <button onClick={toggleMenu} className="md:hidden text-2xl">
@@ -81,21 +81,21 @@ const Header = () => {
         >
           <div className="flex flex-col space-y-4 pt-4 pb-4">
             {navItems.map((item) => (
-              <Link key={item.path} href={item.path}>
-                <a 
-                  className={`text-foreground/80 hover:text-foreground transition-colors duration-300 font-medium ${
-                    location === item.path ? "text-foreground" : ""
-                  }`}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.name}
-                </a>
+              <Link 
+                key={item.path} 
+                href={item.path}
+                className={`text-foreground/80 hover:text-foreground transition-colors duration-300 font-medium ${
+                  location === item.path ? "text-foreground" : ""
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {item.name}
               </Link>
             ))}
             <div className="pt-2">
               <Button asChild variant="outline" className="w-full">
                 <Link href="/register">
-                  <a>Create Account</a>
+                  Create Account
                 </Link>
               </Button>
             </div>

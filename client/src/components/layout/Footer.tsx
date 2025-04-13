@@ -42,35 +42,35 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold font-montserrat mb-6">Features</h3>
             <ul className="space-y-3 text-foreground/70">
-              <li><Link href="/features/avatars"><a className="hover:text-foreground transition-colors">Mystical Avatars</a></Link></li>
-              <li><Link href="/features/bios"><a className="hover:text-foreground transition-colors">Extended Bios</a></Link></li>
-              <li><Link href="/features/links"><a className="hover:text-foreground transition-colors">Link Sharing</a></Link></li>
-              <li><Link href="/features/store"><a className="hover:text-foreground transition-colors">Creator Store</a></Link></li>
-              <li><Link href="/features/fanwall"><a className="hover:text-foreground transition-colors">Fan Wall</a></Link></li>
-              <li><Link href="/features/affiliate"><a className="hover:text-foreground transition-colors">Affiliate Program</a></Link></li>
+              <li><Link href="/features/avatars" className="hover:text-foreground transition-colors">Mystical Avatars</Link></li>
+              <li><Link href="/features/bios" className="hover:text-foreground transition-colors">Extended Bios</Link></li>
+              <li><Link href="/features/links" className="hover:text-foreground transition-colors">Link Sharing</Link></li>
+              <li><Link href="/features/store" className="hover:text-foreground transition-colors">Creator Store</Link></li>
+              <li><Link href="/features/fanwall" className="hover:text-foreground transition-colors">Fan Wall</Link></li>
+              <li><Link href="/features/affiliate" className="hover:text-foreground transition-colors">Affiliate Program</Link></li>
             </ul>
           </div>
           
           <div>
             <h3 className="text-lg font-semibold font-montserrat mb-6">Resources</h3>
             <ul className="space-y-3 text-foreground/70">
-              <li><Link href="/resources/getting-started"><a className="hover:text-foreground transition-colors">Getting Started</a></Link></li>
-              <li><Link href="/resources/creator-guide"><a className="hover:text-foreground transition-colors">Creator Guide</a></Link></li>
-              <li><Link href="/resources/api-docs"><a className="hover:text-foreground transition-colors">API Documentation</a></Link></li>
-              <li><Link href="/resources/tutorials"><a className="hover:text-foreground transition-colors">Tutorials</a></Link></li>
-              <li><Link href="/resources/forums"><a className="hover:text-foreground transition-colors">Community Forums</a></Link></li>
+              <li><Link href="/resources/getting-started" className="hover:text-foreground transition-colors">Getting Started</Link></li>
+              <li><Link href="/resources/creator-guide" className="hover:text-foreground transition-colors">Creator Guide</Link></li>
+              <li><Link href="/resources/api-docs" className="hover:text-foreground transition-colors">API Documentation</Link></li>
+              <li><Link href="/resources/tutorials" className="hover:text-foreground transition-colors">Tutorials</Link></li>
+              <li><Link href="/resources/forums" className="hover:text-foreground transition-colors">Community Forums</Link></li>
             </ul>
           </div>
           
           <div>
             <h3 className="text-lg font-semibold font-montserrat mb-6">Company</h3>
             <ul className="space-y-3 text-foreground/70">
-              <li><Link href="/manifesto"><a className="hover:text-foreground transition-colors">Our Manifesto</a></Link></li>
-              <li><Link href="/company/about"><a className="hover:text-foreground transition-colors">About Us</a></Link></li>
-              <li><Link href="/company/careers"><a className="hover:text-foreground transition-colors">Careers</a></Link></li>
-              <li><Link href="/company/press"><a className="hover:text-foreground transition-colors">Press Kit</a></Link></li>
-              <li><Link href="/company/privacy"><a className="hover:text-foreground transition-colors">Privacy Policy</a></Link></li>
-              <li><Link href="/company/terms"><a className="hover:text-foreground transition-colors">Terms of Service</a></Link></li>
+              <li><Link href="/manifesto" className="hover:text-foreground transition-colors">Our Manifesto</Link></li>
+              <li><Link href="/company/about" className="hover:text-foreground transition-colors">About Us</Link></li>
+              <li><Link href="/company/careers" className="hover:text-foreground transition-colors">Careers</Link></li>
+              <li><Link href="/company/press" className="hover:text-foreground transition-colors">Press Kit</Link></li>
+              <li><Link href="/company/privacy" className="hover:text-foreground transition-colors">Privacy Policy</Link></li>
+              <li><Link href="/company/terms" className="hover:text-foreground transition-colors">Terms of Service</Link></li>
             </ul>
           </div>
         </div>
@@ -80,10 +80,10 @@ const Footer = () => {
             &copy; {currentYear} Dormlit Official. All rights reserved.
           </p>
           <div className="mt-4 md:mt-0 flex items-center space-x-4">
-            <Link href="/privacy"><a className="text-sm text-foreground/60 hover:text-foreground transition-colors">Privacy</a></Link>
-            <Link href="/terms"><a className="text-sm text-foreground/60 hover:text-foreground transition-colors">Terms</a></Link>
-            <Link href="/cookies"><a className="text-sm text-foreground/60 hover:text-foreground transition-colors">Cookies</a></Link>
-            <Link href="/support"><a className="text-sm text-foreground/60 hover:text-foreground transition-colors">Support</a></Link>
+            <Link href="/privacy" className="text-sm text-foreground/60 hover:text-foreground transition-colors">Privacy</Link>
+            <Link href="/terms" className="text-sm text-foreground/60 hover:text-foreground transition-colors">Terms</Link>
+            <Link href="/cookies" className="text-sm text-foreground/60 hover:text-foreground transition-colors">Cookies</Link>
+            <Link href="/support" className="text-sm text-foreground/60 hover:text-foreground transition-colors">Support</Link>
           </div>
         </div>
       </div>
