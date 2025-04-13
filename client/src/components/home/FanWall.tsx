@@ -86,7 +86,7 @@ const FanWall = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           {...floatAnimation}
         >
-          <div className="cosmic-card p-3 rounded-lg max-w-xs rotate-3 shadow-lg">
+          <div className="mystical-card p-3 rounded-lg max-w-xs rotate-3 shadow-lg">
             <div className="flex items-center mb-2">
               <div className="h-8 w-8 rounded-full bg-primary/40 flex items-center justify-center mr-2">
                 <span className="text-sm font-bold">MF</span>
@@ -107,7 +107,7 @@ const FanWall = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
           {...floatAnimation}
         >
-          <div className="cosmic-card p-3 rounded-lg max-w-xs -rotate-2 shadow-lg">
+          <div className="mystical-card p-3 rounded-lg max-w-xs -rotate-2 shadow-lg">
             <div className="flex items-center mb-2">
               <div className="h-8 w-8 rounded-full bg-secondary/40 flex items-center justify-center mr-2">
                 <span className="text-sm font-bold">SG</span>
@@ -122,7 +122,7 @@ const FanWall = () => {
         </motion.div>
         
         <motion.div 
-          className="cosmic-card p-8 rounded-xl"
+          className="mystical-card p-8 rounded-xl"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
@@ -166,7 +166,7 @@ const FanWall = () => {
                 </li>
               </ul>
               
-              <Button className="px-6 py-3 bg-primary rounded-full text-base font-semibold cosmic-glow hover:bg-primary/80 transition-all duration-300">
+              <Button className="px-6 py-3 bg-primary rounded-full text-base font-semibold mystical-glow hover:bg-primary/80 transition-all duration-300">
                 Activate Fan Wall
               </Button>
             </div>
@@ -182,7 +182,7 @@ const FanWall = () => {
                           <span className="font-semibold text-sm">{comment.name.charAt(0)}</span>
                         </div>
                       </div>
-                      <div className={`cosmic-card p-3 rounded-lg flex-1 ${comment.isCreator ? 'border border-primary/50' : ''}`}>
+                      <div className={`mystical-card p-3 rounded-lg flex-1 ${comment.isCreator ? 'border border-primary/50' : ''}`}>
                         <div className="flex justify-between items-center mb-1">
                           <div className="flex items-center">
                             <p className="font-medium">{comment.name}</p>
@@ -218,7 +218,7 @@ const FanWall = () => {
                     </div>
                     <div className="flex-1">
                       <Textarea 
-                        className="cosmic-input rounded-lg bg-card/50 border border-primary/30 p-3 w-full text-sm h-20 min-h-[80px]"
+                        className="mystical-input rounded-lg bg-card/50 border border-primary/30 p-3 w-full text-sm h-20 min-h-[80px]"
                         placeholder="Share your thoughts..."
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}
