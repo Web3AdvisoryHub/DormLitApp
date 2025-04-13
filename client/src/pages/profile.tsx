@@ -318,7 +318,7 @@ const ProfilePage = () => {
           <div className="min-h-[60vh] flex items-center justify-center">
             <div className="cosmic-card p-8 rounded-xl text-center">
               <div className="inline-block h-12 w-12 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
-              <p className="mt-4 text-foreground/70">Loading cosmic profile...</p>
+              <p className="mt-4 text-foreground/70">Loading profile...</p>
             </div>
           </div>
         </main>
@@ -336,10 +336,10 @@ const ProfilePage = () => {
         <main className="relative z-10 container mx-auto px-4 py-12">
           <div className="min-h-[60vh] flex items-center justify-center">
             <div className="cosmic-card p-8 rounded-xl text-center max-w-lg">
-              <h2 className="text-2xl font-bold font-montserrat mb-4">Cosmic Anomaly Detected</h2>
-              <p className="text-foreground/70 mb-6">This cosmic traveler doesn't exist in our universe or their profile is hidden behind a nebula.</p>
+              <h2 className="text-2xl font-bold font-montserrat mb-4">Profile Not Found</h2>
+              <p className="text-foreground/70 mb-6">This profile doesn't exist or is currently hidden.</p>
               <Button onClick={() => navigate('/')} className="bg-primary hover:bg-primary/80">
-                Return to the Cosmic Hub
+                Return to Home
               </Button>
             </div>
           </div>
@@ -397,9 +397,9 @@ const ProfilePage = () => {
                   </DialogTrigger>
                   <DialogContent className="cosmic-card">
                     <DialogHeader>
-                      <DialogTitle>Customize Your Cosmic Avatar</DialogTitle>
+                      <DialogTitle>Customize Your Avatar</DialogTitle>
                       <DialogDescription>
-                        Choose your avatar type and customize its appearance to reflect your cosmic identity.
+                        Choose your avatar type and customize its appearance to reflect your digital identity.
                       </DialogDescription>
                     </DialogHeader>
                     
@@ -620,14 +620,14 @@ const ProfilePage = () => {
                     {userData.bio ? (
                       <p className="whitespace-pre-wrap">{userData.bio}</p>
                     ) : (
-                      <p className="text-foreground/50 italic">No bio yet. Click 'Edit Profile' to add your cosmic story.</p>
+                      <p className="text-foreground/50 italic">No bio yet. Click 'Edit Profile' to add your story.</p>
                     )}
                   </div>
                 )}
                 
                 <div className="mt-6">
                   <div className="flex justify-between items-center mb-3">
-                    <h3 className="font-semibold">Cosmic Links</h3>
+                    <h3 className="font-semibold">My Links</h3>
                     <Button 
                       variant="outline" 
                       size="sm" 
@@ -684,9 +684,9 @@ const ProfilePage = () => {
           <Dialog open={isAddingLink} onOpenChange={setIsAddingLink}>
             <DialogContent className="cosmic-card">
               <DialogHeader>
-                <DialogTitle>Add Cosmic Link</DialogTitle>
+                <DialogTitle>Add Link</DialogTitle>
                 <DialogDescription>
-                  Connect your digital universe with customizable links to all your platforms and content.
+                  Connect all your platforms and content with customizable links.
                 </DialogDescription>
               </DialogHeader>
               
@@ -795,7 +795,7 @@ const ProfilePage = () => {
                   {/* Fan post input */}
                   <div className="mb-8">
                     <Textarea 
-                      placeholder="Share your cosmic thoughts with this creator..."
+                      placeholder="Share your thoughts with this creator..."
                       className="cosmic-input min-h-[80px] mb-2"
                     />
                     <div className="flex justify-end">
@@ -809,7 +809,7 @@ const ProfilePage = () => {
                   {isLoadingPosts ? (
                     <div className="text-center py-8 text-foreground/60">
                       <div className="inline-block h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent mr-2"></div>
-                      Loading cosmic messages...
+                      Loading messages...
                     </div>
                   ) : fanPosts && fanPosts.length > 0 ? (
                     <div className="space-y-4">
