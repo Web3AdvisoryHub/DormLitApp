@@ -96,15 +96,15 @@ const RegisterPage = () => {
           transition={{ duration: 0.5 }}
         >
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold font-montserrat mb-2 cosmic-gradient-text">
-              Begin Your Cosmic Journey
+            <h1 className="text-3xl font-bold font-montserrat mb-2 aura-gradient-text">
+              Begin Your Mystical Journey
             </h1>
             <p className="text-foreground/70">
               Create your mystical digital presence and connect with fans
             </p>
           </div>
           
-          <Tabs defaultValue="register" className="cosmic-card p-6 rounded-xl">
+          <Tabs defaultValue="register" className="mystical-card p-6 rounded-xl">
             <TabsList className="grid w-full grid-cols-2 mb-6">
               <TabsTrigger value="register">New Creator</TabsTrigger>
               <TabsTrigger value="login" onClick={() => navigate('/login')}>Sign In</TabsTrigger>
@@ -121,9 +121,9 @@ const RegisterPage = () => {
                         <FormLabel>Username</FormLabel>
                         <FormControl>
                           <Input 
-                            placeholder="cosmic_creator" 
+                            placeholder="mystical_creator" 
                             {...field} 
-                            className="cosmic-input"
+                            className="mystical-input"
                           />
                         </FormControl>
                         <FormDescription>
@@ -142,9 +142,9 @@ const RegisterPage = () => {
                         <FormLabel>Display Name</FormLabel>
                         <FormControl>
                           <Input 
-                            placeholder="Cosmic Creator" 
+                            placeholder="Mystical Creator" 
                             {...field} 
-                            className="cosmic-input"
+                            className="mystical-input"
                           />
                         </FormControl>
                         <FormDescription>
@@ -164,9 +164,9 @@ const RegisterPage = () => {
                         <FormControl>
                           <Input 
                             type="email" 
-                            placeholder="creator@cosmic.universe" 
+                            placeholder="creator@mystical.realm" 
                             {...field} 
-                            className="cosmic-input"
+                            className="mystical-input"
                           />
                         </FormControl>
                         <FormMessage />
