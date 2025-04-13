@@ -24,7 +24,6 @@ const Header = () => {
   };
 
   const navItems = [
-    { name: "Manifesto", path: "/manifesto" },
     { name: "Discover", path: "/discover" },
     { name: "Marketplace", path: "/marketplace" },
     { name: "Community", path: "/community" },
