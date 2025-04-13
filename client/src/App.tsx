@@ -9,6 +9,7 @@ import LoginPage from "@/pages/login";
 import CreateProfilePage from "@/pages/create-profile";
 import ProfilePage from "@/pages/profile";
 import ManifestoPage from "@/pages/manifesto";
+import DiscoverPage from "@/pages/discover";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -21,7 +22,7 @@ function Router() {
       <Route path="/manifesto" component={ManifestoPage} />
       
       {/* Additional routes */}
-      <Route path="/discover" component={() => <div className="p-20 text-center text-2xl">Discover Page - Coming Soon</div>} />
+      <Route path="/discover" component={DiscoverPage} />
       <Route path="/marketplace" component={() => <div className="p-20 text-center text-2xl">Marketplace - Coming Soon</div>} />
       <Route path="/community" component={() => <div className="p-20 text-center text-2xl">Community - Coming Soon</div>} />
       <Route path="/about" component={() => <div className="p-20 text-center text-2xl">About - Coming Soon</div>} />
