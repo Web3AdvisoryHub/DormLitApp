@@ -12,19 +12,19 @@ const Hero = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <h1 className="text-4xl md:text-6xl font-bold font-montserrat mb-6 leading-tight cosmic-gradient-text">
+        <h1 className="text-4xl md:text-6xl font-bold font-montserrat mb-6 leading-tight aura-gradient-text">
           Your Digital Fan Haven
         </h1>
         <p className="text-xl text-foreground/80 mb-10 font-quicksand">
           Connect with fans in a mystical digital realm where creativity flows and communities thrive
         </p>
         <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-6">
-          <Button asChild className="px-8 py-7 bg-primary rounded-full text-lg font-semibold cosmic-glow hover:bg-primary/80 transition-all duration-300">
+          <Button asChild className="px-8 py-7 bg-primary rounded-full text-lg font-semibold mystical-glow hover:bg-primary/80 transition-all duration-300">
             <Link href="/create-profile">
               <a>Create Your Space</a>
             </Link>
           </Button>
-          <Button asChild variant="outline" className="px-8 py-7 border-secondary rounded-full text-lg font-semibold hover:bg-secondary/20 transition-all duration-300 cosmic-glow">
+          <Button asChild variant="outline" className="px-8 py-7 border-secondary rounded-full text-lg font-semibold hover:bg-secondary/20 transition-all duration-300 mystical-glow">
             <Link href="/discover">
               <a>Explore Creators</a>
             </Link>
@@ -103,7 +103,7 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             {...floatAnimation}
           >
-            <div className="cosmic-card p-4 rounded-lg w-48 rotate-6 shadow-xl">
+            <div className="mystical-card p-4 rounded-lg w-48 rotate-6 shadow-xl">
               <div className="flex items-center mb-2">
                 <div className="w-8 h-8 rounded-full bg-primary mr-2"></div>
                 <span className="font-medium">@MysticalCreator</span>
@@ -120,7 +120,7 @@ const Hero = () => {
             style={{ animationDelay: "2s" }}
             {...floatAnimation}
           >
-            <div className="cosmic-card p-4 rounded-lg w-48 -rotate-3 shadow-xl">
+            <div className="mystical-card p-4 rounded-lg w-48 -rotate-3 shadow-xl">
               <div className="text-sm mb-1 font-medium">NFT Collection Live</div>
               <div className="h-16 bg-gradient-to-r from-primary/40 to-accent/40 rounded-md mb-2"></div>
               <div className="flex justify-between">
