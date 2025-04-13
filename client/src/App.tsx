@@ -8,7 +8,7 @@ import HomePage from "@/pages/home";
 import LoginPage from "@/pages/login";
 import CreateProfilePage from "@/pages/create-profile";
 import ProfilePage from "@/pages/profile";
-import ManifestoPage from "@/pages/manifesto";
+
 import DiscoverPage from "@/pages/discover";
 import AvatarSelectionPage from "@/pages/avatar-selection";
 import NotFound from "@/pages/not-found";
@@ -20,7 +20,6 @@ function Router() {
       <Route path="/login" component={LoginPage} />
       <Route path="/create-profile" component={CreateProfilePage} />
       <Route path="/profile/:username" component={ProfilePage} />
-      <Route path="/manifesto" component={ManifestoPage} />
       
       {/* Additional routes */}
       <Route path="/discover" component={DiscoverPage} />

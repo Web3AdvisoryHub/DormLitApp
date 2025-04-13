@@ -194,7 +194,6 @@ const ProfilePage = () => {
         title: "Link added",
         description: "Your cosmic link has been added successfully.",
       });
-      setIsAddingLink(false);
       linkForm.reset();
     },
     onError: (error) => {
@@ -627,96 +626,6 @@ const ProfilePage = () => {
               </div>
             </div>
           </motion.div>
-          
-          {/* Add Link Dialog */}
-          <Dialog open={isAddingLink} onOpenChange={setIsAddingLink}>
-            <DialogContent className="cosmic-card">
-              <DialogHeader>
-                <DialogTitle>Add Link</DialogTitle>
-                <DialogDescription>
-                  Connect all your platforms and content with customizable links.
-                </DialogDescription>
-              </DialogHeader>
-              
-              <Form {...linkForm}>
-                <form onSubmit={linkForm.handleSubmit(onLinkSubmit)} className="space-y-4">
-                  <FormField
-                    control={linkForm.control}
-                    name="title"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Link Title</FormLabel>
-                        <FormControl>
-                          <Input {...field} placeholder="Twitter, Portfolio, Store, etc." className="cosmic-input" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={linkForm.control}
-                    name="url"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>URL</FormLabel>
-                        <FormControl>
-                          <Input {...field} placeholder="https://..." className="cosmic-input" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={linkForm.control}
-                    name="icon"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Icon Type</FormLabel>
-                        <div className="grid grid-cols-3 gap-2">
-                          <Button 
-                            type="button"
-                            variant={field.value === 'link' ? 'default' : 'outline'}
-                            className={field.value === 'link' ? 'bg-primary' : ''}
-                            onClick={() => field.onChange('link')}
-                          >
-                            <LinkIcon size={14} className="mr-2" /> Link
-                          </Button>
-                          <Button 
-                            type="button"
-                            variant={field.value === 'twitter' ? 'default' : 'outline'}
-                            className={field.value === 'twitter' ? 'bg-primary' : ''}
-                            onClick={() => field.onChange('twitter')}
-                          >
-                            <Twitter size={14} className="mr-2" /> Twitter
-                          </Button>
-                          <Button 
-                            type="button"
-                            variant={field.value === 'instagram' ? 'default' : 'outline'}
-                            className={field.value === 'instagram' ? 'bg-primary' : ''}
-                            onClick={() => field.onChange('instagram')}
-                          >
-                            <Instagram size={14} className="mr-2" /> Insta
-                          </Button>
-                        </div>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <DialogFooter>
-                    <Button variant="outline" onClick={() => setIsAddingLink(false)}>
-                      Cancel
-                    </Button>
-                    <Button type="submit" className="bg-primary hover:bg-primary/80">
-                      Add Link
-                    </Button>
-                  </DialogFooter>
-                </form>
-              </Form>
-            </DialogContent>
-          </Dialog>
           
           {/* Content Tabs */}
           <Tabs defaultValue="fan-wall" className="mt-8">
