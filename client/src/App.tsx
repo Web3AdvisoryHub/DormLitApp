@@ -8,6 +8,7 @@ import HomePage from "@/pages/home";
 import LoginPage from "@/pages/login";
 import CreateProfilePage from "@/pages/create-profile";
 import ProfilePage from "@/pages/profile";
+import ManifestoPage from "@/pages/manifesto";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -17,6 +18,7 @@ function Router() {
       <Route path="/login" component={LoginPage} />
       <Route path="/create-profile" component={CreateProfilePage} />
       <Route path="/profile/:username" component={ProfilePage} />
+      <Route path="/manifesto" component={ManifestoPage} />
       
       {/* Additional routes */}
       <Route path="/discover" component={() => <div className="p-20 text-center text-2xl">Discover Page - Coming Soon</div>} />
