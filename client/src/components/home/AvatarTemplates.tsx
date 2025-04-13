@@ -47,7 +47,7 @@ const AvatarTemplates = () => {
         transition={{ duration: 0.5 }}
       >
         <h2 className="text-3xl md:text-4xl font-bold font-montserrat mb-4 cosmic-gradient-text">
-          Blueprint Avatar Templates
+          Avatar Templates
         </h2>
         <p className="text-lg text-foreground/70 max-w-2xl mx-auto font-quicksand">
           Choose your digital form with our mystical templates designed for a unique online presence

@@ -13,21 +13,21 @@ import {
 const features = [
   {
     icon: <UserCircle className="text-accent" size={24} />,
-    title: "Cosmic Avatars",
-    description: "Create your digital identity with our cosmic avatar templates including Echo and Helios profiles",
+    title: "Mystical Avatars",
+    description: "Create your digital identity with our avatar templates including Echo and Helios profiles",
     link: "/features/avatars",
     linkText: "Customize Avatar"
   },
   {
     icon: <PenLine className="text-accent" size={24} />,
     title: "Extended Bios",
-    description: "Tell your cosmic story with up to 8000 characters, format with rich text, and embed media",
+    description: "Tell your story with up to 8000 characters, format with rich text, and embed media",
     link: "/features/bios",
     linkText: "Craft Your Story"
   },
   {
     icon: <LinkIcon className="text-accent" size={24} />,
-    title: "Cosmic Links",
+    title: "Connected Links",
     description: "Connect your digital universe with customizable links to all your platforms and content",
     link: "/features/links",
     linkText: "Connect Universe"
@@ -42,7 +42,7 @@ const features = [
   {
     icon: <MessageSquare className="text-accent" size={24} />,
     title: "Fan Wall",
-    description: "Engage with your community through an interactive fan wall where cosmic connections are made",
+    description: "Engage with your community through an interactive fan wall where meaningful connections are made",
     link: "/features/fanwall",
     linkText: "Engage Fans"
   },
@@ -68,7 +68,7 @@ const Features = () => {
           Mystical Features
         </h2>
         <p className="text-lg text-foreground/70 max-w-2xl mx-auto font-quicksand">
-          Discover the cosmic tools that elevate your digital presence and connect you with your community
+          Discover the mystical tools that elevate your digital presence and connect you with your community
         </p>
       </motion.div>
       

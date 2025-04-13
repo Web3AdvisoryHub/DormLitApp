@@ -106,9 +106,9 @@ const Hero = () => {
             <div className="cosmic-card p-4 rounded-lg w-48 rotate-6 shadow-xl">
               <div className="flex items-center mb-2">
                 <div className="w-8 h-8 rounded-full bg-primary mr-2"></div>
-                <span className="font-medium">@CosmicCreator</span>
+                <span className="font-medium">@MysticalCreator</span>
               </div>
-              <div className="text-xs text-foreground/70">Just launched a new cosmic experience!</div>
+              <div className="text-xs text-foreground/70">Just launched a new mystical experience!</div>
             </div>
           </motion.div>
           
