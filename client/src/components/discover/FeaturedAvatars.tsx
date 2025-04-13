@@ -32,7 +32,7 @@ const FeaturedAvatars = () => {
           >
             <div className="rounded-2xl overflow-hidden mb-6 border-2 border-primary/30 shadow-2xl shadow-primary/20 mystical-glow">
               <img 
-                src="/assets/Echo.png" 
+                src="/avatars/echo-blueprint.png" 
                 alt="Echo - Mystical Avatar" 
                 className="w-full h-auto object-cover" 
               />
@@ -58,9 +58,9 @@ const FeaturedAvatars = () => {
           >
             <div className="rounded-2xl overflow-hidden mb-6 border-2 border-primary/30 shadow-2xl shadow-primary/20 mystical-glow">
               <img 
-                src="/assets/Helios.png" 
+                src="/avatars/helios-blueprint.png" 
                 alt="Helios - Mystical Avatar" 
-                className="w-full h-auto object-cover" 
+                className="w-full h-auto object-cover object-top" 
               />
             </div>
             <h3 className="text-2xl font-bold mb-2">Helios</h3>

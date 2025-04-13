@@ -93,7 +93,7 @@ const BlueprintAvatarCard = ({
                 <img 
                   src={imagePath} 
                   alt={name} 
-                  className="w-full h-full object-cover transition-transform duration-500"
+                  className={`w-full h-full object-cover transition-transform duration-500 ${name.includes('Helios') ? 'object-top' : ''}`}
                   style={{
                     transform: isHovered ? 'scale(1.05)' : 'scale(1)'
                   }}
