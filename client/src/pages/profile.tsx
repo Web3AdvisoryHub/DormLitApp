@@ -103,7 +103,7 @@ const ProfilePage = () => {
   const [, navigate] = useLocation();
   const { toast } = useToast();
   const [isEditing, setIsEditing] = useState(false);
-  const [isAddingLink, setIsAddingLink] = useState(false);
+
   
   // Fetch user profile data
   const { data: userData, isLoading, error } = useQuery({
@@ -624,58 +624,6 @@ const ProfilePage = () => {
                     )}
                   </div>
                 )}
-                
-                <div className="mt-6">
-                  <div className="flex justify-between items-center mb-3">
-                    <h3 className="font-semibold">My Links</h3>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="text-xs"
-                      onClick={() => setIsAddingLink(true)}
-                    >
-                      <Plus size={14} className="mr-1" /> Add Link
-                    </Button>
-                  </div>
-                  
-                  {isLoadingLinks ? (
-                    <div className="text-center py-4 text-foreground/60">
-                      <div className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent mr-2"></div>
-                      Loading links...
-                    </div>
-                  ) : (
-                    <div className="flex flex-wrap gap-2">
-                      {userLinks && userLinks.length > 0 ? (
-                        userLinks.map((link: any) => (
-                          <a
-                            key={link.id}
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group cosmic-card px-3 py-2 rounded-full flex items-center gap-2 hover:scale-105 transition-all"
-                          >
-                            {getLinkIcon(link.icon || link.title)}
-                            <span>{link.title}</span>
-                            <button
-                              onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                handleDeleteLink(link.id);
-                              }}
-                              className="opacity-0 group-hover:opacity-100 transition-opacity text-foreground/60 hover:text-foreground"
-                            >
-                              <Trash size={14} />
-                            </button>
-                          </a>
-                        ))
-                      ) : (
-                        <p className="text-foreground/50 italic w-full text-center py-2">
-                          No links added yet. Add links to connect your digital presence.
-                        </p>
-                      )}
-                    </div>
-                  )}
-                </div>
               </div>
             </div>
           </motion.div>
