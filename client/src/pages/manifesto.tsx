@@ -1,8 +1,12 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { Link } from 'wouter';
+import { ArrowRight } from 'lucide-react';
+import { Helmet } from 'react-helmet';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import StarBackground from '@/components/ui/star-background';
+import { Button } from '@/components/ui/button';
 
 // Define animation variants
 const staggerContainerVariant = {
@@ -46,6 +50,11 @@ const ManifestoPage = () => {
 
   return (
     <>
+      <Helmet>
+        <title>The Dormlit Manifesto | Express Your Essence</title>
+        <meta name="description" content="Dormlit is a mystical platform for creators to express, connect, and design their difference. Read our manifesto." />
+      </Helmet>
+
       <StarBackground starCount={150} />
       <Header />
       
@@ -60,6 +69,19 @@ const ManifestoPage = () => {
             className="text-center mb-16"
             variants={fadeUpVariant}
           >
+            <motion.p
+              className="text-lg md:text-xl text-foreground/70 italic mb-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ 
+                duration: 1.2,
+                delay: 0.3,
+                ease: [0.22, 1, 0.36, 1] 
+              }}
+            >
+              Step beyond the veil...
+            </motion.p>
+            
             <motion.h1 
               className="text-5xl md:text-6xl font-bold font-montserrat mb-4 aura-gradient-text"
               initial={{ opacity: 0, y: 20 }}
@@ -219,6 +241,29 @@ const ManifestoPage = () => {
           </motion.div>
         </motion.div>
       </main>
+      
+      {/* Sticky Explore Button */}
+      <div className="fixed bottom-8 left-0 right-0 z-50 flex justify-center pointer-events-none">
+        <motion.div 
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ 
+            delay: 3,
+            duration: 0.8,
+            ease: [0.22, 1, 0.36, 1]
+          }}
+          className="pointer-events-auto"
+        >
+          <Button 
+            asChild
+            className="px-6 py-6 rounded-full bg-primary/90 backdrop-blur-sm hover:bg-primary transition-all duration-300 shadow-xl mystical-glow"
+          >
+            <Link href="/discover" className="flex items-center gap-2 text-lg font-medium">
+              I'm ready to explore <ArrowRight className="ml-1" size={18} />
+            </Link>
+          </Button>
+        </motion.div>
+      </div>
       
       <Footer />
     </>
