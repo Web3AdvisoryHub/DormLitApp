@@ -64,7 +64,7 @@ const RegisterPage = () => {
       if (response.ok) {
         toast({
           title: "Registration successful!",
-          description: "Your cosmic journey awaits. Setting up your profile...",
+          description: "Your mystical journey awaits. Setting up your profile...",
         });
         
         // Redirect to profile page after successful registration
@@ -185,7 +185,7 @@ const RegisterPage = () => {
                             type="password" 
                             placeholder="••••••••" 
                             {...field} 
-                            className="cosmic-input"
+                            className="mystical-input"
                           />
                         </FormControl>
                         <FormMessage />
@@ -204,7 +204,7 @@ const RegisterPage = () => {
                             type="password" 
                             placeholder="••••••••" 
                             {...field} 
-                            className="cosmic-input"
+                            className="mystical-input"
                           />
                         </FormControl>
                         <FormMessage />
@@ -215,7 +215,7 @@ const RegisterPage = () => {
                   <Button 
                     type="submit" 
                     disabled={isSubmitting}
-                    className="w-full py-6 bg-primary rounded-full text-lg font-semibold cosmic-glow hover:bg-primary/80 transition-all duration-300"
+                    className="w-full py-6 bg-primary rounded-full text-lg font-semibold mystical-glow hover:bg-primary/80 transition-all duration-300"
                   >
                     {isSubmitting ? "Creating your space..." : "Create Your Space"}
                   </Button>

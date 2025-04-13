@@ -15,13 +15,13 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center space-x-2 mb-6">
-              <div className="h-10 w-10 bg-primary rounded-full flex items-center justify-center cosmic-glow">
+              <div className="h-10 w-10 bg-primary rounded-full flex items-center justify-center mystical-glow">
                 <span className="text-lg font-bold font-montserrat">D</span>
               </div>
               <h2 className="text-xl font-bold font-montserrat">Dormlit</h2>
             </div>
             <p className="text-foreground/70 mb-6">
-              Your cosmic digital fan haven where creativity and community converge in a mystical experience.
+              Your mystical digital fan haven where creativity and community converge in a magical experience.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center hover:bg-primary/40 transition-colors">

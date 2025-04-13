@@ -83,8 +83,8 @@ const LoginPage = () => {
           transition={{ duration: 0.5 }}
         >
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold font-montserrat mb-2 cosmic-gradient-text">
-              Return to Your Cosmic Realm
+            <h1 className="text-3xl font-bold font-montserrat mb-2 aura-gradient-text">
+              Return to Your Mystical Realm
             </h1>
             <p className="text-foreground/70">
               Sign in to manage your creator profile and connect with fans
