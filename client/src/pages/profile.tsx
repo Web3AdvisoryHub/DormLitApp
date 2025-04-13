@@ -670,7 +670,7 @@ const ProfilePage = () => {
                         ))
                       ) : (
                         <p className="text-foreground/50 italic w-full text-center py-2">
-                          No links added yet. Add links to connect your cosmic universe.
+                          No links added yet. Add links to connect your digital presence.
                         </p>
                       )}
                     </div>
@@ -834,8 +834,8 @@ const ProfilePage = () => {
                     </div>
                   ) : (
                     <div className="text-center py-12 cosmic-card bg-card/30 rounded-xl">
-                      <h3 className="text-xl font-semibold mb-2">The Cosmic Wall Awaits</h3>
-                      <p className="text-foreground/60 mb-4">Be the first to leave a message in this cosmic space.</p>
+                      <h3 className="text-xl font-semibold mb-2">The Fan Wall Awaits</h3>
+                      <p className="text-foreground/60 mb-4">Be the first to leave a message in this space.</p>
                       <Button className="bg-primary hover:bg-primary/80">
                         Leave First Message
                       </Button>
@@ -894,7 +894,7 @@ const ProfilePage = () => {
                   ) : (
                     <div className="text-center py-12 cosmic-card bg-card/30 rounded-xl">
                       <h3 className="text-xl font-semibold mb-2">The Store is Empty</h3>
-                      <p className="text-foreground/60 mb-4">This creator hasn't added any items to their cosmic store yet.</p>
+                      <p className="text-foreground/60 mb-4">This creator hasn't added any items to their store yet.</p>
                       {userData.username === username && (
                         <Button className="bg-primary hover:bg-primary/80">
                           Add Store Item
@@ -919,7 +919,7 @@ const ProfilePage = () => {
                   <div className="text-center py-12 cosmic-card bg-card/30 rounded-xl">
                     <CalendarDays size={48} className="mx-auto mb-4 text-foreground/30" />
                     <h3 className="text-xl font-semibold mb-2">Coming Soon</h3>
-                    <p className="text-foreground/60 mb-4">The creator's cosmic gallery is still being formed in the stars.</p>
+                    <p className="text-foreground/60 mb-4">The creator's gallery is still being developed.</p>
                   </div>
                 </div>
               </motion.div>
@@ -938,7 +938,7 @@ const ProfilePage = () => {
                   <div className="text-center py-12 cosmic-card bg-card/30 rounded-xl">
                     <MoveDiagonal size={48} className="mx-auto mb-4 text-foreground/30" />
                     <h3 className="text-xl font-semibold mb-2">NFT Showcase Coming Soon</h3>
-                    <p className="text-foreground/60 mb-4">This cosmic feature is being prepared for the metaverse.</p>
+                    <p className="text-foreground/60 mb-4">This feature is being prepared for the metaverse.</p>
                   </div>
                 </div>
               </motion.div>

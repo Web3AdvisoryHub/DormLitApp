@@ -5,7 +5,7 @@ import { Check } from 'lucide-react';
 const avatarTemplates = [
   {
     name: "Echo",
-    tagline: "The cosmic resonator",
+    tagline: "The resonator",
     color: "text-accent",
     tagBackground: "bg-primary/70",
     tag: "Ethereal & Harmonious",
@@ -27,7 +27,7 @@ const avatarTemplates = [
     features: [
       "Solar flare animations",
       "Dynamic light emission",
-      "Cosmic energy visualizers"
+      "Energy visualizers"
     ],
     buttonClass: "bg-secondary hover:bg-secondary/80",
     gradientFrom: "from-secondary/40",
@@ -50,7 +50,7 @@ const AvatarTemplates = () => {
           Blueprint Avatar Templates
         </h2>
         <p className="text-lg text-foreground/70 max-w-2xl mx-auto font-quicksand">
-          Choose your cosmic form with our mystical templates designed for a unique digital presence
+          Choose your digital form with our mystical templates designed for a unique online presence
         </p>
       </motion.div>
       
