@@ -58,16 +58,16 @@ const AvatarSelectionPage = () => {
               tagline="Ethereal & Adaptive"
               realm="Tides & Frequencies"
               tooltipMessage="Echo listens to who you've always been."
-              imagePath="/assets/avatars/echo-blueprint.png"
+              imagePath="/avatars/echo-blueprint.png"
               onChoose={handleAvatarChoice}
             />
             
             <BlueprintAvatarCard
               name="Helios the Illuminator"
-              tagline="Radiant & Grounded"
+              tagline="Radiant & Grounded" 
               realm="Flare & Foundation"
               tooltipMessage="Helios reflects who you're becoming."
-              imagePath="/assets/avatars/helios-blueprint.png"
+              imagePath="/avatars/helios-blueprint.png"
               onChoose={handleAvatarChoice}
             />
           </div>
