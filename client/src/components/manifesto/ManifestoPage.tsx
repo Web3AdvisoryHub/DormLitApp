@@ -5,8 +5,8 @@ import { twMerge } from 'tailwind-merge';
 const ManifestoPage: React.FC = () => {
   const manifestoSections = [
     {
-      title: "What is Dormlet?",
-      content: "Dormlet is a creative sanctuary where your digital self takes form through avatars and emotions. It's a space where your thoughts and feelings find expression through a unique blend of journaling and visual storytelling."
+      title: "What is DormLit?",
+      content: "DormLit is a creative sanctuary where your digital self takes form through avatars and emotions. It's a space where your thoughts and feelings find expression through a unique blend of journaling and digital art."
     },
     {
       title: "Your Digital Canvas",
@@ -31,8 +31,8 @@ const ManifestoPage: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h1 className="text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
-            The Dormlet Manifesto
+          <h1 className="text-4xl font-bold text-center mb-8">
+            The DormLit Manifesto
           </h1>
           <p className="text-xl text-purple-200">
             A space where creativity meets self-expression

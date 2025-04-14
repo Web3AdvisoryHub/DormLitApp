@@ -2,7 +2,9 @@ import {
   users, type User, type InsertUser,
   profileLinks, type ProfileLink, type InsertProfileLink,
   storeItems, type StoreItem, type InsertStoreItem,
-  fanPosts, type FanPost, type InsertFanPost
+  fanPosts, type FanPost, type InsertFanPost,
+  customItems, type CustomItem,
+  nftItems, type NFTItem
 } from "@shared/schema";
 
 // Storage interface
@@ -33,6 +35,40 @@ export interface IStorage {
   getFanPostsWithUserInfo(creatorId: number): Promise<(FanPost & { user: Partial<User> })[]>;
   createFanPost(post: InsertFanPost): Promise<FanPost>;
   deleteFanPost(id: number): Promise<boolean>;
+
+  // Custom Items
+  createCustomItem(data: {
+    userId: number;
+    name: string;
+    type: 'clothing' | 'accessory';
+    imageUrl: string;
+    isNFT: boolean;
+  }): Promise<CustomItem>;
+  
+  getCustomItems(userId: number): Promise<CustomItem[]>;
+  
+  deleteCustomItem(id: string): Promise<void>;
+
+  // NFT Items
+  createNFTItem(data: {
+    name: string;
+    description: string;
+    imageUrl: string;
+    tokenId: string;
+    contractAddress: string;
+    ownerId: number;
+    roomId: string;
+    price: string;
+  }): Promise<NFTItem>;
+  
+  getNFTItems(roomId: string): Promise<NFTItem[]>;
+  
+  updateNFTOwnership(tokenId: string, newOwnerId: number): Promise<void>;
+  
+  getNFTItem(tokenId: string): Promise<NFTItem | undefined>;
+
+  // File Storage
+  uploadFile(file: File): Promise<string>;
 }
 
 export class MemStorage implements IStorage {
@@ -40,6 +76,8 @@ export class MemStorage implements IStorage {
   private links: Map<number, ProfileLink>;
   private items: Map<number, StoreItem>;
   private posts: Map<number, FanPost>;
+  private customItems: Map<string, CustomItem>;
+  private nftItems: Map<string, NFTItem>;
   
   private userId: number = 1;
   private linkId: number = 1;
@@ -51,6 +89,8 @@ export class MemStorage implements IStorage {
     this.links = new Map();
     this.items = new Map();
     this.posts = new Map();
+    this.customItems = new Map();
+    this.nftItems = new Map();
   }
 
   // User methods
@@ -200,6 +240,78 @@ export class MemStorage implements IStorage {
   
   async deleteFanPost(id: number): Promise<boolean> {
     return this.posts.delete(id);
+  }
+
+  // Custom Items
+  async createCustomItem(data: {
+    userId: number;
+    name: string;
+    type: 'clothing' | 'accessory';
+    imageUrl: string;
+    isNFT: boolean;
+  }): Promise<CustomItem> {
+    const id = generateId();
+    const item: CustomItem = {
+      id,
+      ...data,
+    };
+    this.customItems.set(id, item);
+    return item;
+  }
+
+  async getCustomItems(userId: number): Promise<CustomItem[]> {
+    return Array.from(this.customItems.values())
+      .filter(item => item.userId === userId);
+  }
+
+  async deleteCustomItem(id: string): Promise<void> {
+    this.customItems.delete(id);
+  }
+
+  // NFT Items
+  async createNFTItem(data: {
+    name: string;
+    description: string;
+    imageUrl: string;
+    tokenId: string;
+    contractAddress: string;
+    ownerId: number;
+    roomId: string;
+    price: string;
+  }): Promise<NFTItem> {
+    const id = generateId();
+    const item: NFTItem = {
+      id,
+      ...data,
+    };
+    this.nftItems.set(id, item);
+    return item;
+  }
+
+  async getNFTItems(roomId: string): Promise<NFTItem[]> {
+    return Array.from(this.nftItems.values())
+      .filter(item => item.roomId === roomId);
+  }
+
+  async updateNFTOwnership(tokenId: string, newOwnerId: number): Promise<void> {
+    for (const item of this.nftItems.values()) {
+      if (item.tokenId === tokenId) {
+        item.ownerId = newOwnerId;
+        break;
+      }
+    }
+  }
+
+  async getNFTItem(tokenId: string): Promise<NFTItem | undefined> {
+    return Array.from(this.nftItems.values())
+      .find(item => item.tokenId === tokenId);
+  }
+
+  // File Storage
+  async uploadFile(file: File): Promise<string> {
+    // In a real implementation, this would upload to IPFS, S3, etc.
+    // For now, we'll just return a mock URL
+    return `https://storage.example.com/${file.name}`;
   }
 }
 

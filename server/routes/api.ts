@@ -139,7 +139,7 @@ router.get('/affiliates/:userId', async (req, res) => {
 router.post('/affiliates', async (req, res) => {
   const { userId } = req.body;
   try {
-    const inviteLink = `dormlet.com/invite/${uuidv4()}`;
+    const inviteLink = `dormlit.com/invite/${uuidv4()}`;
     const newAffiliate = await db
       .insert(affiliates)
       .values({

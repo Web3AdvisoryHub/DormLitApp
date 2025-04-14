@@ -8,6 +8,7 @@ import {
   insertFanPostSchema
 } from "@shared/schema";
 import { z } from "zod";
+import { WebSocket } from "ws";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // === AUTH ROUTES ===
@@ -425,6 +426,147 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       return res.status(500).json({ message: "Failed to delete fan post" });
     }
+  });
+
+  // Custom Items Routes
+  app.post('/api/items/upload', sessionMiddleware, async (req, res) => {
+    const userId = req.session.userId;
+    if (!userId) {
+      return res.status(401).json({ success: false, error: 'Unauthorized' });
+    }
+
+    try {
+      const { file, name, type } = req.body;
+      // Upload file to storage (e.g., IPFS, S3)
+      const imageUrl = await storage.uploadFile(file);
+      
+      const item = await storage.createCustomItem({
+        userId,
+        name,
+        type,
+        imageUrl,
+        isNFT: false,
+      });
+
+      res.json({ success: true, data: item });
+    } catch (error) {
+      console.error('Error uploading item:', error);
+      res.status(500).json({ success: false, error: 'Failed to upload item' });
+    }
+  });
+
+  // NFT Routes
+  app.post('/api/nft/mint', sessionMiddleware, async (req, res) => {
+    const userId = req.session.userId;
+    if (!userId) {
+      return res.status(401).json({ success: false, error: 'Unauthorized' });
+    }
+
+    try {
+      const { name, description, imageUrl, roomId } = req.body;
+      
+      // Mint NFT using smart contract
+      const { tokenId, contractAddress } = await nftService.mintNFT({
+        name,
+        description,
+        imageUrl,
+        ownerId: userId,
+      });
+
+      const nftItem = await storage.createNFTItem({
+        name,
+        description,
+        imageUrl,
+        tokenId,
+        contractAddress,
+        ownerId: userId,
+        roomId,
+        price: '0.1', // Default price in ETH
+      });
+
+      res.json({ success: true, data: nftItem });
+    } catch (error) {
+      console.error('Error minting NFT:', error);
+      res.status(500).json({ success: false, error: 'Failed to mint NFT' });
+    }
+  });
+
+  app.post('/api/nft/purchase', sessionMiddleware, async (req, res) => {
+    const userId = req.session.userId;
+    if (!userId) {
+      return res.status(401).json({ success: false, error: 'Unauthorized' });
+    }
+
+    try {
+      const { tokenId, contractAddress, price } = req.body;
+      
+      // Execute NFT purchase using smart contract
+      await nftService.purchaseNFT({
+        tokenId,
+        contractAddress,
+        buyerId: userId,
+        price,
+      });
+
+      // Update ownership in database
+      await storage.updateNFTOwnership(tokenId, userId);
+
+      res.json({ success: true });
+    } catch (error) {
+      console.error('Error purchasing NFT:', error);
+      res.status(500).json({ success: false, error: 'Failed to purchase NFT' });
+    }
+  });
+
+  // Chat Routes
+  app.post('/api/chat/message', sessionMiddleware, async (req, res) => {
+    const userId = req.session.userId;
+    if (!userId) {
+      return res.status(401).json({ success: false, error: 'Unauthorized' });
+    }
+
+    try {
+      const { roomId, content } = req.body;
+      const user = await storage.getUser(userId);
+      
+      if (!user) {
+        return res.status(404).json({ success: false, error: 'User not found' });
+      }
+
+      const message = {
+        id: generateId(),
+        userId,
+        username: user.username,
+        avatarUrl: user.avatarUrl,
+        content,
+        timestamp: new Date().toISOString(),
+      };
+
+      // Broadcast message to room
+      chatService.broadcastMessage(roomId, message);
+
+      res.json({ success: true, data: message });
+    } catch (error) {
+      console.error('Error sending message:', error);
+      res.status(500).json({ success: false, error: 'Failed to send message' });
+    }
+  });
+
+  // WebSocket setup for real-time chat
+  const wss = new WebSocket.Server({ server });
+
+  wss.on('connection', (ws, req) => {
+    const roomId = req.url?.split('/').pop();
+    if (!roomId) {
+      ws.close();
+      return;
+    }
+
+    chatService.addClient(roomId, ws);
+
+    ws.on('close', () => {
+      chatService.removeClient(roomId, ws);
+    });
   });
 
   const httpServer = createServer(app);

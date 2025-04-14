@@ -16,8 +16,8 @@ const AffiliateSystem: React.FC = () => {
   });
 
   const generateInviteLink = () => {
-    // This will be implemented in the future
-    return 'dormlet.com/invite/placeholder';
+    // In a real implementation, this would generate a unique invite link
+    return 'dormlit.com/invite/placeholder';
   };
 
   const copyToClipboard = (text: string) => {
@@ -28,9 +28,7 @@ const AffiliateSystem: React.FC = () => {
   return (
     <div className="p-6">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold mb-8 text-center text-purple-200">
-          Share Dormlet
-        </h2>
+        <h2 className="text-2xl font-bold mb-4">Share DormLit</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           {Object.entries(stats).map(([key, value]) => (

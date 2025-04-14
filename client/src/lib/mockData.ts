@@ -148,7 +148,7 @@ export const mockApi = {
       const newAffiliate = {
         id: uuidv4(),
         userId,
-        inviteLink: `dormlet.com/invite/${uuidv4()}`,
+        inviteLink: `dormlit.com/invite/${uuidv4()}`,
         totalInvites: 0,
         activeUsers: 0,
       };

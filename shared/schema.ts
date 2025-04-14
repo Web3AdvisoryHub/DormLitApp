@@ -89,3 +89,35 @@ export type InsertStoreItem = z.infer<typeof insertStoreItemSchema>;
 
 export type FanPost = typeof fanPosts.$inferSelect;
 export type InsertFanPost = z.infer<typeof insertFanPostSchema>;
+
+export interface CustomItem {
+  id: string;
+  userId: number;
+  name: string;
+  type: 'clothing' | 'accessory';
+  imageUrl: string;
+  isNFT: boolean;
+  tokenId?: string;
+  contractAddress?: string;
+}
+
+export interface NFTItem {
+  id: string;
+  name: string;
+  description: string;
+  imageUrl: string;
+  tokenId: string;
+  contractAddress: string;
+  ownerId: number;
+  roomId: string;
+  price: string;
+}
+
+export interface RoomMessage {
+  id: string;
+  userId: number;
+  username: string;
+  avatarUrl: string;
+  content: string;
+  timestamp: string;
+}
