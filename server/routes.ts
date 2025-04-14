@@ -123,6 +123,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+  // Update user avatar
+  app.post("/api/users/avatar", async (req: Request, res: Response) => {
+    try {
+      const { avatarUrl } = req.body;
+      const userId = req.session.userId; // Assuming you have session middleware
+
+      if (!userId) {
+        return res.status(401).json({ message: "Unauthorized" });
+      }
+
+      if (!avatarUrl) {
+        return res.status(400).json({ message: "Avatar URL is required" });
+      }
+
+      await storage.updateUserAvatar(userId, avatarUrl);
+      return res.status(200).json({ message: "Avatar updated successfully" });
+    } catch (error) {
+      return res.status(500).json({ message: "Failed to update avatar" });
+    }
+  });
+  
   // === PROFILE LINKS ROUTES ===
   // Get all links for a user
   app.get("/api/users/:userId/links", async (req: Request, res: Response) => {

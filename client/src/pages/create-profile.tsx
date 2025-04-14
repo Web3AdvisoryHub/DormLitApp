@@ -64,7 +64,7 @@ const CreateProfilePage = () => {
       if (response.ok) {
         toast({
           title: "Registration successful!",
-          description: "Your cosmic journey awaits. Setting up your profile...",
+          description: "Your profile has been created. Setting up your account...",
         });
         
         // Redirect to profile page after successful registration
@@ -96,17 +96,17 @@ const CreateProfilePage = () => {
           transition={{ duration: 0.5 }}
         >
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold font-montserrat mb-2 cosmic-gradient-text">
-              Begin Your Cosmic Journey
+            <h1 className="text-3xl font-bold font-montserrat mb-2 aura-gradient-text">
+              Join Dormlit
             </h1>
             <p className="text-foreground/70">
-              Create your mystical digital presence and connect with fans
+              Create your account and start your journey
             </p>
           </div>
           
-          <Tabs defaultValue="register" className="cosmic-card p-6 rounded-xl">
+          <Tabs defaultValue="register" className="mystical-card p-6 rounded-xl">
             <TabsList className="grid w-full grid-cols-2 mb-6">
-              <TabsTrigger value="register">New Creator</TabsTrigger>
+              <TabsTrigger value="register">New User</TabsTrigger>
               <TabsTrigger value="login" onClick={() => navigate('/login')}>Sign In</TabsTrigger>
             </TabsList>
             
@@ -121,9 +121,9 @@ const CreateProfilePage = () => {
                         <FormLabel>Username</FormLabel>
                         <FormControl>
                           <Input 
-                            placeholder="cosmic_creator" 
+                            placeholder="username" 
                             {...field} 
-                            className="cosmic-input"
+                            className="mystical-input"
                           />
                         </FormControl>
                         <FormDescription>
@@ -142,9 +142,9 @@ const CreateProfilePage = () => {
                         <FormLabel>Display Name</FormLabel>
                         <FormControl>
                           <Input 
-                            placeholder="Cosmic Creator" 
+                            placeholder="Your Name" 
                             {...field} 
-                            className="cosmic-input"
+                            className="mystical-input"
                           />
                         </FormControl>
                         <FormDescription>
@@ -164,9 +164,9 @@ const CreateProfilePage = () => {
                         <FormControl>
                           <Input 
                             type="email" 
-                            placeholder="creator@cosmic.universe" 
+                            placeholder="your.email@example.com" 
                             {...field} 
-                            className="cosmic-input"
+                            className="mystical-input"
                           />
                         </FormControl>
                         <FormMessage />
@@ -185,7 +185,7 @@ const CreateProfilePage = () => {
                             type="password" 
                             placeholder="••••••••" 
                             {...field} 
-                            className="cosmic-input"
+                            className="mystical-input"
                           />
                         </FormControl>
                         <FormMessage />
@@ -204,7 +204,7 @@ const CreateProfilePage = () => {
                             type="password" 
                             placeholder="••••••••" 
                             {...field} 
-                            className="cosmic-input"
+                            className="mystical-input"
                           />
                         </FormControl>
                         <FormMessage />
@@ -215,9 +215,9 @@ const CreateProfilePage = () => {
                   <Button 
                     type="submit" 
                     disabled={isSubmitting}
-                    className="w-full py-6 bg-primary rounded-full text-lg font-semibold cosmic-glow hover:bg-primary/80 transition-all duration-300"
+                    className="w-full py-6 bg-primary rounded-full text-lg font-semibold mystical-glow hover:bg-primary/80 transition-all duration-300"
                   >
-                    {isSubmitting ? "Creating your space..." : "Create Your Space"}
+                    {isSubmitting ? "Creating your profile..." : "Create Profile"}
                   </Button>
                 </form>
               </Form>

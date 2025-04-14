@@ -13,6 +13,7 @@ export interface IStorage {
   getUserByEmail(email: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
   updateUser(id: number, data: Partial<User>): Promise<User | undefined>;
+  updateUserAvatar(id: number, avatarUrl: string): Promise<User | undefined>;
   
   // Profile link methods
   getProfileLinks(userId: number): Promise<ProfileLink[]>;
@@ -89,6 +90,19 @@ export class MemStorage implements IStorage {
     if (!user) return undefined;
     
     const updatedUser = { ...user, ...data };
+    this.users.set(id, updatedUser);
+    return updatedUser;
+  }
+
+  async updateUserAvatar(id: number, avatarUrl: string): Promise<User | undefined> {
+    const user = await this.getUser(id);
+    if (!user) return undefined;
+    
+    const updatedUser = { 
+      ...user, 
+      avatarType: "readyplayerme",
+      avatarSettings: { url: avatarUrl }
+    };
     this.users.set(id, updatedUser);
     return updatedUser;
   }

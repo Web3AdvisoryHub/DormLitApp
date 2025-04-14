@@ -84,16 +84,16 @@ const LoginPage = () => {
         >
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold font-montserrat mb-2 aura-gradient-text">
-              Return to Your Mystical Realm
+              Welcome to Dormlit
             </h1>
             <p className="text-foreground/70">
-              Sign in to manage your creator profile and connect with fans
+              Sign in to access your account
             </p>
           </div>
           
           <Tabs defaultValue="login" className="mystical-card p-6 rounded-xl">
             <TabsList className="grid w-full grid-cols-2 mb-6">
-              <TabsTrigger value="register" onClick={() => navigate('/create-profile')}>New Creator</TabsTrigger>
+              <TabsTrigger value="register" onClick={() => navigate('/create-profile')}>New User</TabsTrigger>
               <TabsTrigger value="login">Sign In</TabsTrigger>
             </TabsList>
             
@@ -148,7 +148,7 @@ const LoginPage = () => {
                     disabled={isSubmitting}
                     className="w-full py-6 bg-primary rounded-full text-lg font-semibold mystical-glow hover:bg-primary/80 transition-all duration-300"
                   >
-                    {isSubmitting ? "Connecting..." : "Enter Your Space"}
+                    {isSubmitting ? "Signing in..." : "Sign In"}
                   </Button>
                 </form>
               </Form>

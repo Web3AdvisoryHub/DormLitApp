@@ -1,89 +1,85 @@
-import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useLocation } from 'wouter';
-import { Helmet } from 'react-helmet';
+import { motion } from 'framer-motion';
+import { apiRequest } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import StarBackground from '@/components/ui/star-background';
-import BlueprintAvatarCard from '@/components/avatars/BlueprintAvatarCard';
+import ReadyPlayerMe from '@/components/avatar/ReadyPlayerMe';
+import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
 
 const AvatarSelectionPage = () => {
-  const [, setLocation] = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(false);
+  const [, navigate] = useLocation();
   const { toast } = useToast();
-  
-  const handleAvatarChoice = (avatarName: string) => {
-    toast({
-      title: "Avatar Selected",
-      description: `You've chosen ${avatarName} as your mystical avatar.`,
-      duration: 3000,
-    });
-    
-    // In a real implementation, we would save the avatar choice to the user's profile
-    // For now, we'll just navigate to the profile page after a short delay
-    setTimeout(() => {
-      setLocation('/create-profile');
-    }, 1500);
+
+  const handleAvatarCreated = async (avatarUrl: string) => {
+    try {
+      const response = await apiRequest('POST', '/api/users/avatar', { avatarUrl });
+      
+      if (response.ok) {
+        toast({
+          title: "Avatar updated!",
+          description: "Your avatar has been successfully set.",
+        });
+        
+        // Show onboarding after a short delay
+        setTimeout(() => {
+          setShowOnboarding(true);
+        }, 1000);
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to save your avatar. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleOnboardingComplete = () => {
+    navigate('/mood');
   };
 
   return (
     <>
-      <Helmet>
-        <title>Choose Your Mystical Avatar | Dormlit</title>
-        <meta name="description" content="Select your mystical avatar and begin your journey on Dormlit." />
-      </Helmet>
-      
-      <StarBackground starCount={150} />
+      <StarBackground starCount={100} />
       <Header />
       
-      <main className="min-h-screen pt-24 pb-32 relative z-10">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-16 text-center"
-          >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 aura-gradient-text">
-              Choose Your Blueprint Avatar
-            </h1>
-            <p className="text-lg md:text-xl text-foreground/80 max-w-3xl mx-auto">
-              Your avatar is your mystical guide and reflection. Select the one that resonates with your energy.
-            </p>
-          </motion.div>
+      <main className="relative z-10 container mx-auto px-4 py-12">
+        <motion.div
+          className="max-w-2xl mx-auto text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h1 className="text-4xl font-bold font-montserrat mb-4 aura-gradient-text">
+            Create Your Avatar
+          </h1>
+          <p className="text-xl text-foreground/70 mb-8">
+            Design a unique avatar that represents you in the Dormlit universe
+          </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
-            <BlueprintAvatarCard
-              name="Echo the Resonator"
-              tagline="Ethereal & Adaptive"
-              realm="Tides & Frequencies"
-              tooltipMessage="Echo listens to who you've always been."
-              imagePath="/avatars/echo-blueprint.png"
-              onChoose={handleAvatarChoice}
-            />
-            
-            <BlueprintAvatarCard
-              name="Helios the Illuminator"
-              tagline="Radiant & Grounded" 
-              realm="Flare & Foundation"
-              tooltipMessage="Helios reflects who you're becoming."
-              imagePath="/avatars/helios-blueprint.png"
-              onChoose={handleAvatarChoice}
-            />
-          </div>
-          
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 0.8 }}
-            className="mt-20 text-center text-foreground/60 max-w-3xl mx-auto"
+          <Button
+            onClick={() => setIsOpen(true)}
+            className="px-8 py-6 text-lg font-semibold mystical-glow"
           >
-            <p className="text-sm italic">
-              Your choice will guide your initial aesthetic, but you can customize and evolve your avatar as your journey unfolds.
-            </p>
-          </motion.div>
-        </div>
+            Start Creating
+          </Button>
+        </motion.div>
       </main>
+      
+      <ReadyPlayerMe
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        onAvatarCreated={handleAvatarCreated}
+      />
+      
+      {showOnboarding && (
+        <OnboardingFlow onComplete={handleOnboardingComplete} />
+      )}
       
       <Footer />
     </>
