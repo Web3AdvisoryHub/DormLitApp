@@ -24,11 +24,11 @@ const Header = () => {
   };
 
   const navItems = [
-    { name: "Discover", path: "/discover" },
-    { name: "Manifesto", path: "/manifesto" },
-    { name: "Mood", path: "/mood" },
-    { name: "Invite", path: "/invite" },
-    { name: "About", path: "/about" }
+    { name: 'Home', path: '/' },
+    { name: 'Discover', path: '/discover' },
+    { name: 'Creator Room', path: '/creator-room' },
+    { name: 'Dreamscape', path: '/dreamscape' },
+    { name: 'Profile', path: '/profile' },
   ];
 
   return (

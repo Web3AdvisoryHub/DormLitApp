@@ -1,125 +1,121 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { twMerge } from 'tailwind-merge';
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
-interface Mood {
-  id: string;
-  name: string;
+export type Mood = 'clarity' | 'euphoria' | 'longing' | 'serenity' | 'nostalgia';
+
+interface MoodTheme {
+  primaryColor: string;
+  secondaryColor: string;
+  ambientTone: string;
   description: string;
-  color: string;
-  icon: string;
-  prompts: string[];
 }
 
-const defaultMoods: Mood[] = [
-  {
-    id: 'clarity',
-    name: 'Clarity',
-    description: 'Moments of clear vision and understanding',
-    color: 'from-blue-400 to-cyan-300',
-    icon: '✨',
-    prompts: [
-      'What insight came to you today?',
-      'Describe a moment of sudden understanding',
-      'What truth became clear to you?'
-    ]
+const MOOD_THEMES: Record<Mood, MoodTheme> = {
+  clarity: {
+    primaryColor: '#4A90E2',
+    secondaryColor: '#E3F2FD',
+    ambientTone: 'calm',
+    description: 'Clear thoughts, focused mind'
   },
-  {
-    id: 'euphoria',
-    name: 'Euphoria',
-    description: 'Pure joy and elevated energy',
-    color: 'from-pink-400 to-purple-300',
-    icon: '🌟',
-    prompts: [
-      'What made your heart sing today?',
-      'Describe a moment of pure joy',
-      'What lifted your spirits?'
-    ]
+  euphoria: {
+    primaryColor: '#FF6B6B',
+    secondaryColor: '#FFE3E3',
+    ambientTone: 'energetic',
+    description: 'Joyful energy, vibrant spirit'
   },
-  {
-    id: 'longing',
-    name: 'Longing',
-    description: 'Deep desire and wistful reflection',
-    color: 'from-indigo-400 to-violet-300',
-    icon: '🌙',
-    prompts: [
-      'What do you yearn for?',
-      'Describe a moment of deep desire',
-      'What calls to your heart?'
-    ]
+  longing: {
+    primaryColor: '#9B59B6',
+    secondaryColor: '#F3E5F5',
+    ambientTone: 'melancholic',
+    description: 'Deep emotions, wistful dreams'
+  },
+  serenity: {
+    primaryColor: '#2ECC71',
+    secondaryColor: '#E8F5E9',
+    ambientTone: 'peaceful',
+    description: 'Tranquil mind, balanced soul'
+  },
+  nostalgia: {
+    primaryColor: '#F39C12',
+    secondaryColor: '#FFF3E0',
+    ambientTone: 'warm',
+    description: 'Sweet memories, golden moments'
   }
-];
-
-const MoodEngine: React.FC = () => {
-  const [selectedMood, setSelectedMood] = useState<Mood | null>(null);
-  const [showPrompts, setShowPrompts] = useState(false);
-
-  const handleMoodSelect = (mood: Mood) => {
-    setSelectedMood(mood);
-    setShowPrompts(true);
-  };
-
-  return (
-    <div className="p-6">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold mb-8 text-center text-purple-200">
-          Choose Your Mood
-        </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {defaultMoods.map((mood) => (
-            <motion.div
-              key={mood.id}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => handleMoodSelect(mood)}
-              className={twMerge(
-                "p-6 rounded-lg cursor-pointer",
-                "bg-gradient-to-br",
-                mood.color,
-                "hover:shadow-lg transition-all duration-300",
-                "border border-white/10"
-              )}
-            >
-              <div className="text-4xl mb-4">{mood.icon}</div>
-              <h3 className="text-xl font-semibold mb-2 text-white">
-                {mood.name}
-              </h3>
-              <p className="text-white/80">{mood.description}</p>
-            </motion.div>
-          ))}
-        </div>
-
-        <AnimatePresence>
-          {showPrompts && selectedMood && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="mt-8 p-6 rounded-lg bg-purple-900/50 backdrop-blur-sm"
-            >
-              <h3 className="text-2xl font-semibold mb-4 text-purple-200">
-                {selectedMood.name} Prompts
-              </h3>
-              <div className="space-y-4">
-                {selectedMood.prompts.map((prompt, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="p-4 rounded-lg bg-purple-800/30 hover:bg-purple-800/50 transition-colors cursor-pointer"
-                  >
-                    <p className="text-purple-100">{prompt}</p>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </div>
-  );
 };
 
-export default MoodEngine; 
+interface MoodEngineProps {
+  onMoodChange?: (mood: Mood, theme: MoodTheme) => void;
+  className?: string;
+}
+
+export function MoodEngine({ onMoodChange, className }: MoodEngineProps) {
+  const [selectedMood, setSelectedMood] = useState<Mood>('clarity');
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  useEffect(() => {
+    if (onMoodChange) {
+      onMoodChange(selectedMood, MOOD_THEMES[selectedMood]);
+    }
+  }, [selectedMood, onMoodChange]);
+
+  return (
+    <div className={cn("relative", className)}>
+      <motion.div
+        className="flex flex-col gap-2 p-4 rounded-lg bg-background/80 backdrop-blur-sm"
+        initial={false}
+        animate={{ height: isExpanded ? 'auto' : '48px' }}
+      >
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-semibold">Mood Engine</h3>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setIsExpanded(!isExpanded)}
+          >
+            {isExpanded ? 'Collapse' : 'Expand'}
+          </Button>
+        </div>
+
+        {isExpanded && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="grid grid-cols-2 md:grid-cols-5 gap-2"
+          >
+            {(Object.keys(MOOD_THEMES) as Mood[]).map((mood) => (
+              <motion.button
+                key={mood}
+                className={cn(
+                  "p-2 rounded-lg text-sm transition-colors",
+                  "hover:bg-primary/10",
+                  selectedMood === mood
+                    ? "bg-primary/20 text-primary"
+                    : "bg-muted/50"
+                )}
+                onClick={() => setSelectedMood(mood)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <div
+                  className="w-6 h-6 rounded-full mx-auto mb-1"
+                  style={{ backgroundColor: MOOD_THEMES[mood].primaryColor }}
+                />
+                <span className="capitalize">{mood}</span>
+              </motion.button>
+            ))}
+          </motion.div>
+        )}
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="text-sm text-muted-foreground mt-2"
+        >
+          {MOOD_THEMES[selectedMood].description}
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+} 

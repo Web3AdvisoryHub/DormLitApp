@@ -1,95 +1,132 @@
+import { useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { AvatarCustomization } from '@/types/avatar';
 
 interface AvatarPreviewProps {
-  data: {
-    faceShape: string;
-    hairStyle: string;
-    hairColor: string;
-    eyeShape: string;
-    eyeColor: string;
-    noseType: string;
-    mouthStyle: string;
-    skinTone: string;
-    clothing: string;
-    accessories: string[];
-  };
+  customization: AvatarCustomization;
   className?: string;
+  size?: 'sm' | 'md' | 'lg';
+  showControls?: boolean;
 }
 
-export function AvatarPreview({ data, className }: AvatarPreviewProps) {
+export function AvatarPreview({
+  customization,
+  className,
+  size = 'md',
+  showControls = true,
+}: AvatarPreviewProps) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animationFrameRef = useRef<number>();
+
+  const sizeClasses = {
+    sm: 'w-32 h-32',
+    md: 'w-64 h-64',
+    lg: 'w-96 h-96',
+  };
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Clear previous frame
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw avatar layers
+    const drawAvatar = () => {
+      // Draw base (skin tone)
+      ctx.fillStyle = customization.skinTone;
+      ctx.beginPath();
+      ctx.arc(canvas.width / 2, canvas.height / 2, canvas.width / 3, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Draw hair
+      ctx.fillStyle = customization.hairColor;
+      // Hair style logic would go here
+      // This is a simplified example
+      ctx.beginPath();
+      ctx.arc(canvas.width / 2, canvas.height / 2 - 20, canvas.width / 3 + 10, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Draw clothing
+      ctx.fillStyle = customization.clothingColor;
+      // Clothing style logic would go here
+      ctx.beginPath();
+      ctx.rect(
+        canvas.width / 2 - 30,
+        canvas.height / 2 + 20,
+        60,
+        40
+      );
+      ctx.fill();
+
+      // Request next frame
+      animationFrameRef.current = requestAnimationFrame(drawAvatar);
+    };
+
+    drawAvatar();
+
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, [customization]);
+
   return (
-    <div className={cn("relative w-full h-full", className)}>
-      {/* Face */}
-      <div
-        className="absolute w-full h-full rounded-full"
-        style={{ backgroundColor: data.skinTone }}
-      >
-        {/* Eyes */}
-        <div className="absolute top-1/4 left-1/4 w-1/4 h-1/4">
-          <div
-            className={cn(
-              "w-full h-full rounded-full",
-              data.eyeShape === 'normal' ? 'rounded-full' : 'rounded-none'
-            )}
-            style={{ backgroundColor: data.eyeColor }}
-          />
-        </div>
-        <div className="absolute top-1/4 right-1/4 w-1/4 h-1/4">
-          <div
-            className={cn(
-              "w-full h-full rounded-full",
-              data.eyeShape === 'normal' ? 'rounded-full' : 'rounded-none'
-            )}
-            style={{ backgroundColor: data.eyeColor }}
-          />
-        </div>
-
-        {/* Nose */}
-        <div
-          className={cn(
-            "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2",
-            "w-1/8 h-1/8",
-            data.noseType === 'normal' ? 'rounded-full' : 'rounded-none'
-          )}
-          style={{ backgroundColor: '#8B4513' }}
-        />
-
-        {/* Mouth */}
-        <div
-          className={cn(
-            "absolute bottom-1/4 left-1/4 w-1/2 h-1/8",
-            data.mouthStyle === 'smile' ? 'rounded-b-full' : 'rounded-none'
-          )}
-          style={{ backgroundColor: '#FF69B4' }}
-        />
-      </div>
-
-      {/* Hair */}
-      <div
+    <div className={cn("relative", className)}>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
         className={cn(
-          "absolute top-0 left-0 w-full h-full",
-          data.hairStyle === 'short' ? 'h-1/4' :
-          data.hairStyle === 'medium' ? 'h-1/2' :
-          'h-3/4'
+          "relative overflow-hidden rounded-full bg-background",
+          sizeClasses[size]
         )}
-        style={{ backgroundColor: data.hairColor }}
-      />
+      >
+        <canvas
+          ref={canvasRef}
+          className="w-full h-full"
+          width={size === 'sm' ? 128 : size === 'md' ? 256 : 384}
+          height={size === 'sm' ? 128 : size === 'md' ? 256 : 384}
+        />
+      </motion.div>
 
-      {/* Accessories */}
-      {data.accessories.includes('glasses') && (
-        <div className="absolute top-1/4 left-1/4 w-1/2 h-1/8 bg-gray-300 rounded-full" />
-      )}
-      {data.accessories.includes('hat') && (
-        <div className="absolute top-0 left-1/4 w-1/2 h-1/4 bg-gray-500 rounded-t-full" />
-      )}
-      {data.accessories.includes('earrings') && (
-        <>
-          <div className="absolute top-1/3 left-1/8 w-1/8 h-1/8 bg-yellow-500 rounded-full" />
-          <div className="absolute top-1/3 right-1/8 w-1/8 h-1/8 bg-yellow-500 rounded-full" />
-        </>
-      )}
-      {data.accessories.includes('necklace') && (
-        <div className="absolute bottom-1/4 left-1/4 w-1/2 h-1/8 bg-gray-300 rounded-full" />
+      {showControls && (
+        <div className="absolute bottom-4 left-4 right-4 flex justify-center gap-2">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="p-2 rounded-full bg-background/80 backdrop-blur-sm"
+            onClick={() => {
+              // Rotate left
+              if (canvasRef.current) {
+                canvasRef.current.style.transform = `rotate(${
+                  (parseInt(canvasRef.current.style.transform.replace('rotate(', '').replace('deg)', '')) || 0) - 45
+                }deg)`;
+              }
+            }}
+          >
+            ↺
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="p-2 rounded-full bg-background/80 backdrop-blur-sm"
+            onClick={() => {
+              // Rotate right
+              if (canvasRef.current) {
+                canvasRef.current.style.transform = `rotate(${
+                  (parseInt(canvasRef.current.style.transform.replace('rotate(', '').replace('deg)', '')) || 0) + 45
+                }deg)`;
+              }
+            }}
+          >
+            ↻
+          </motion.button>
+        </div>
       )}
     </div>
   );

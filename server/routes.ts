@@ -9,6 +9,12 @@ import {
 } from "@shared/schema";
 import { z } from "zod";
 import { WebSocket } from "ws";
+import { Router } from 'express';
+import { supabase } from './lib/supabase';
+import { SubscriptionService } from './services/subscription.service';
+import { WalletService } from './services/wallet.service';
+
+const router = Router();
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // === AUTH ROUTES ===
@@ -569,6 +575,254 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   });
 
+  // Phone line routes
+  app.post('/api/phone-lines/settings', sessionMiddleware, async (req, res) => {
+    const userId = req.session.userId;
+    if (!userId) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    try {
+      const settings = req.body;
+      await storage.updatePhoneLineSettings(userId, settings);
+      res.json({ success: true });
+    } catch (error) {
+      console.error('Error updating phone line settings:', error);
+      res.status(500).json({ error: 'Failed to update settings' });
+    }
+  });
+
+  app.get('/api/phone-lines/creators', async (req, res) => {
+    try {
+      const creators = await storage.getPhoneLineCreators();
+      res.json({ creators });
+    } catch (error) {
+      console.error('Error fetching phone line creators:', error);
+      res.status(500).json({ error: 'Failed to fetch creators' });
+    }
+  });
+
+  app.post('/api/phone-lines/call', sessionMiddleware, async (req, res) => {
+    const userId = req.session.userId;
+    if (!userId) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    try {
+      const { creatorId } = req.body;
+      const creator = await storage.getUser(creatorId);
+      if (!creator) {
+        return res.status(404).json({ error: 'Creator not found' });
+      }
+
+      const settings = await storage.getPhoneLineSettings(creatorId);
+      if (!settings || !settings.isAvailable) {
+        return res.status(400).json({ error: 'Creator is not available' });
+      }
+
+      const callRecord = await storage.createCallRecord({
+        userId,
+        creatorId,
+        duration: 0,
+        cost: 0,
+        platformFee: settings.platformFee,
+        status: 'active'
+      });
+
+      res.json({ success: true, callId: callRecord.id });
+    } catch (error) {
+      console.error('Error initiating call:', error);
+      res.status(500).json({ error: 'Failed to initiate call' });
+    }
+  });
+
+  app.post('/api/phone-lines/end-call', sessionMiddleware, async (req, res) => {
+    const userId = req.session.userId;
+    if (!userId) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    try {
+      const { callId } = req.body;
+      const call = await storage.endCall(callId);
+      if (!call) {
+        return res.status(404).json({ error: 'Call not found' });
+      }
+
+      res.json({ success: true, call });
+    } catch (error) {
+      console.error('Error ending call:', error);
+      res.status(500).json({ error: 'Failed to end call' });
+    }
+  });
+
+  app.post('/api/phone-lines/message', sessionMiddleware, async (req, res) => {
+    const userId = req.session.userId;
+    if (!userId) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    try {
+      const { creatorId, message } = req.body;
+      const creator = await storage.getUser(creatorId);
+      if (!creator) {
+        return res.status(404).json({ error: 'Creator not found' });
+      }
+
+      const settings = await storage.getPhoneLineSettings(creatorId);
+      if (!settings) {
+        return res.status(400).json({ error: 'Creator phone line not configured' });
+      }
+
+      const textMessage = await storage.createTextMessage({
+        userId,
+        creatorId,
+        message,
+        cost: settings.textRate,
+        platformFee: settings.platformFee,
+        status: 'sent'
+      });
+
+      res.json({ success: true, message: textMessage });
+    } catch (error) {
+      console.error('Error sending message:', error);
+      res.status(500).json({ error: 'Failed to send message' });
+    }
+  });
+
+  app.get('/api/phone-lines/history', sessionMiddleware, async (req, res) => {
+    const userId = req.session.userId;
+    if (!userId) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    try {
+      const [calls, messages] = await Promise.all([
+        storage.getCallHistory(userId),
+        storage.getMessageHistory(userId)
+      ]);
+
+      res.json({ calls, messages });
+    } catch (error) {
+      console.error('Error fetching history:', error);
+      res.status(500).json({ error: 'Failed to fetch history' });
+    }
+  });
+
+  // Signup route with grandfathered status check
+  router.post('/auth/signup', async (req, res) => {
+    try {
+      const { email, password, username } = req.body;
+
+      // Check if within first week of launch
+      const launchDate = new Date('2024-03-01'); // Set your launch date
+      const now = new Date();
+      const isWithinFirstWeek = (now.getTime() - launchDate.getTime()) <= 7 * 24 * 60 * 60 * 1000;
+
+      // Create user in Supabase Auth
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email,
+        password,
+      });
+
+      if (authError) throw authError;
+
+      // Create profile with grandfathered status if applicable
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .insert({
+          id: authData.user?.id,
+          username,
+          is_grandfathered: isWithinFirstWeek,
+          subscription_status: isWithinFirstWeek ? 'grandfathered' : 'inactive',
+          subscription_tier: isWithinFirstWeek ? 'pro_creator' : 'explorer'
+        })
+        .select()
+        .single();
+
+      if (profileError) throw profileError;
+
+      res.json({ user: authData.user, profile });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // Subscription routes
+  router.post('/subscriptions/create', async (req, res) => {
+    try {
+      const { userId, tier } = req.body;
+      const profile = await SubscriptionService.createSubscription(userId, tier);
+      res.json(profile);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  router.post('/subscriptions/cancel', async (req, res) => {
+    try {
+      const { userId } = req.body;
+      const profile = await SubscriptionService.cancelSubscription(userId);
+      res.json(profile);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // Wallet routes
+  router.post('/wallets/link', async (req, res) => {
+    try {
+      const { userId, address, provider } = req.body;
+      const wallet = await WalletService.linkWallet(userId, address, provider);
+      res.json(wallet);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  router.post('/wallets/verify', async (req, res) => {
+    try {
+      const { userId, signature } = req.body;
+      const wallet = await WalletService.verifyWallet(userId, signature);
+      res.json(wallet);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  router.get('/wallets/:userId', async (req, res) => {
+    try {
+      const { userId } = req.params;
+      const wallet = await WalletService.getWallet(userId);
+      res.json(wallet);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // Revenue routes
+  router.post('/revenue/track', async (req, res) => {
+    try {
+      const { userId, amount, source } = req.body;
+      const revenue = await WalletService.trackRevenue(userId, amount, source);
+      res.json(revenue);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  router.get('/revenue/:userId', async (req, res) => {
+    try {
+      const { userId } = req.params;
+      const revenue = await WalletService.getRevenueHistory(userId);
+      res.json(revenue);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
+
+export default router;
