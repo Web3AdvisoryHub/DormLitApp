@@ -6,7 +6,7 @@
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "dev:server": "cd server && npm run dev",
     "dev:client": "cd client && npm run dev",
-    "build": "concurrently \"npm run build:server\" \"npm run build:client\"",
+    "build": "npm install react@18.3.1 react-dom@18.3.1 --save-exact && concurrently \"npm run build:server\" \"npm run build:client\"",
     "build:server": "cd server && npm run build",
     "build:client": "cd client && npm run build",
     "start": "concurrently \"npm run start:server\" \"npm run start:client\"",
@@ -31,5 +31,11 @@
   },
   "engines": {
     "node": ">=18.0.0"
+  },
+  "resolutions": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-native": "0.73.2",
+    "expo": "49.0.0"
   }
 }
