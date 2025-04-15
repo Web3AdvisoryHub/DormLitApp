@@ -1,0 +1,30 @@
+version: 1
+applications:
+  - frontend:
+      phases:
+        preBuild:
+          commands:
+            - npm install --legacy-peer-deps --force
+        build:
+          commands:
+            - npm run build
+      artifacts:
+        baseDirectory: dist
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - node_modules/**/*
+  - backend:
+      phases:
+        build:
+          commands:
+            - cd server && npm install --legacy-peer-deps --force
+            - npm run build
+      artifacts:
+        baseDirectory: server/dist
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - server/node_modules/**/* 
