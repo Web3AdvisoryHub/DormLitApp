@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "npm install --legacy-peer-deps && npm run build",
+  "buildCommand": "./custom-build.sh",
   "installCommand": "npm install --legacy-peer-deps",
   "framework": null,
   "outputDirectory": "dist"
