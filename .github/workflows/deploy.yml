@@ -1,0 +1,123 @@
+name: Deploy DormLitApp
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  NODE_VERSION: '16'
+  POSTGRES_VERSION: '12'
+  REDIS_VERSION: '6'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:${{ env.POSTGRES_VERSION }}
+        env:
+          POSTGRES_USER: dormlit_user
+          POSTGRES_PASSWORD: dormlit_password
+          POSTGRES_DB: dormlit
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      redis:
+        image: redis:${{ env.REDIS_VERSION }}
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run tests
+      run: npm test
+      env:
+        DATABASE_URL: postgres://dormlit_user:dormlit_password@localhost:5432/dormlit
+        REDIS_URL: redis://localhost:6379
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build
+      run: npm run build
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: Deploy to production
+      run: |
+        # Set up SSH
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+
+        # Copy deployment script
+        scp scripts/deploy.sh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/tmp/
+
+        # Execute deployment
+        ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "chmod +x /tmp/deploy.sh && /tmp/deploy.sh production ${{ github.sha }}"
+
+    - name: Verify deployment
+      run: |
+        # Wait for application to start
+        sleep 30
+
+        # Test API endpoints
+        curl -f https://${{ secrets.DOMAIN }}/api/health
+        curl -f https://${{ secrets.DOMAIN }}/api/auth/status
+        curl -f https://${{ secrets.DOMAIN }}/api/rooms/list
+
+  monitor:
+    needs: deploy
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+    - name: Check monitoring status
+      run: |
+        # Check Datadog status
+        curl -s -H "DD-API-KEY: ${{ secrets.DATADOG_API_KEY }}" \
+             -H "DD-APPLICATION-KEY: ${{ secrets.DATADOG_APP_KEY }}" \
+             "https://api.datadoghq.com/api/v1/monitor" | jq '.'
+
+        # Check Sentry status
+        curl -s -H "Authorization: Bearer ${{ secrets.SENTRY_API_TOKEN }}" \
+             "https://sentry.io/api/0/projects/${{ secrets.SENTRY_ORG }}/${{ secrets.SENTRY_PROJECT }}/stats/" | jq '.' 

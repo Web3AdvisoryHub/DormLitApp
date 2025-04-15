@@ -1,0 +1,16 @@
+{
+  "status": "healthy",
+  "version": "1.0.0",
+  "timestamp": "2024-03-21T12:00:00Z",
+  "services": {
+    "api": "operational",
+    "websocket": "operational",
+    "database": "operational",
+    "cache": "operational"
+  },
+  "metrics": {
+    "uptime": 100,
+    "response_time": 50,
+    "memory_usage": 45
+  }
+} 

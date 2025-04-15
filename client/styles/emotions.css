@@ -1,0 +1,193 @@
+/* Base avatar styles */
+.avatar {
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+/* Mobile animations (simple, head-based) */
+.animate-head-nod {
+  animation: headNod 1s ease-in-out;
+}
+
+.animate-head-tilt {
+  animation: headTilt 1.5s ease-in-out;
+}
+
+@keyframes headNod {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes headTilt {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-15deg); }
+}
+
+/* Desktop animations (medium complexity) */
+.animate-smile {
+  animation: smile 1.5s ease-in-out;
+}
+
+.animate-hand-wave {
+  animation: handWave 1.5s ease-in-out;
+}
+
+.animate-frown {
+  animation: frown 2s ease-in-out;
+}
+
+.animate-head-down {
+  animation: headDown 2s ease-in-out;
+}
+
+@keyframes smile {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+@keyframes handWave {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(15deg); }
+  75% { transform: rotate(-15deg); }
+}
+
+@keyframes frown {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(0.95); }
+}
+
+@keyframes headDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+}
+
+/* VR animations (complex) */
+.animate-full-smile {
+  animation: fullSmile 2s ease-in-out;
+}
+
+.animate-jump {
+  animation: jump 2s ease-in-out;
+}
+
+.animate-wave {
+  animation: wave 2s ease-in-out;
+}
+
+.animate-full-frown {
+  animation: fullFrown 2.5s ease-in-out;
+}
+
+.animate-sit {
+  animation: sit 2.5s ease-in-out;
+}
+
+.animate-cry {
+  animation: cry 2.5s ease-in-out;
+}
+
+@keyframes fullSmile {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+@keyframes jump {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes wave {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(30deg); }
+  75% { transform: rotate(-30deg); }
+}
+
+@keyframes fullFrown {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(0.9); }
+}
+
+@keyframes sit {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(20px); }
+}
+
+@keyframes cry {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Particle effects for VR */
+.particle-effect {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.particle-effect::before {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: currentColor;
+  border-radius: 50%;
+  animation: particleFloat 2s ease-in-out infinite;
+}
+
+@keyframes particleFloat {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-50px) scale(0); opacity: 0; }
+}
+
+/* Media queries for device-specific optimizations */
+@media (max-width: 768px) {
+  /* Mobile optimizations */
+  .avatar {
+    transform-origin: center top;
+  }
+  
+  /* Disable complex animations on mobile */
+  .animate-full-smile,
+  .animate-jump,
+  .animate-wave,
+  .animate-full-frown,
+  .animate-sit,
+  .animate-cry {
+    animation: none;
+  }
+  
+  .particle-effect {
+    display: none;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Tablet optimizations */
+  .avatar {
+    transform-origin: center;
+  }
+  
+  /* Reduce animation complexity */
+  .animate-jump {
+    animation: jump 1.5s ease-in-out;
+  }
+  
+  .particle-effect::before {
+    width: 3px;
+    height: 3px;
+  }
+}
+
+@media (min-width: 1025px) {
+  /* Desktop optimizations */
+  .avatar {
+    transform-origin: center;
+  }
+  
+  /* Enable all animations */
+  .particle-effect::before {
+    width: 4px;
+    height: 4px;
+  }
+} 
