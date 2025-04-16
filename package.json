@@ -20,6 +20,7 @@
     "lint:client": "cd client && npm run lint",
     "clean": "rimraf node_modules dist build",
     "postinstall": "npm run clean && npm install --legacy-peer-deps --force"
+
   },
   "dependencies": {
     "@readyplayerme/visage": "^6.7.0",
