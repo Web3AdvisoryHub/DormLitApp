@@ -16,6 +16,7 @@ node_modules/
 .env.development.local
 .env.test.local
 .env.production.local
+.env.*.local
 
 # Debug logs
 npm-debug.log*
@@ -75,3 +76,24 @@ logs/
 server/public
 vite.config.ts.*
 *.tar.gz
+
+# Environment variables
+.env.*.local
+
+# Amplify
+amplify/\#current-cloud-backend
+amplify/mock-data
+amplify/backend/amplify-meta.json
+amplify/backend/awscloudformation
+amplify/backend/.temp
+build/
+dist/
+node_modules/
+aws-exports.js
+aws-exports.ts
+amplifyconfiguration.json
+amplifyconfiguration.dart
+amplify-build-config.json
+amplify-gradle-config.json
+amplifytools.xcconfig
+.secret-*
