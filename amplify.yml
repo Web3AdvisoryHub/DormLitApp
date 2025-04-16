@@ -1,30 +1,32 @@
 version: 1
-applications:
-  - frontend:
-      phases:
-        preBuild:
-          commands:
-            - npm install --legacy-peer-deps --force
-        build:
-          commands:
-            - npm run build
-      artifacts:
-        baseDirectory: dist
-        files:
-          - '**/*'
-      cache:
-        paths:
-          - node_modules/**/*
-  - backend:
-      phases:
-        build:
-          commands:
-            - cd server && npm install --legacy-peer-deps --force
-            - npm run build
-      artifacts:
-        baseDirectory: server/dist
-        files:
-          - '**/*'
-      cache:
-        paths:
-          - server/node_modules/**/* 
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - cd client
+        - npm install --legacy-peer-deps
+    build:
+      commands:
+        - npm run build
+  artifacts:
+    baseDirectory: client/dist
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - client/node_modules/**/*
+
+backend:
+  phases:
+    build:
+      commands:
+        - cd server
+        - npm install --legacy-peer-deps
+        - npm run build
+  artifacts:
+    baseDirectory: server/dist
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - server/node_modules/**/* 
